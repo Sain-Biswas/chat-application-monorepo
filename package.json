@@ -1,13 +1,9 @@
 {
-  "name": "chat-application-react-hono",
+  "name": "chat-application",
   "version": "0.0.1",
   "description": "A simple real time chat application for connecting peolpe world-wide.",
-  "scripts": {
-    "dev": "pnpm run -r --parallel --aggregate-output dev",
-    "build": "pnpm run -r build",
-    "test": "pnpm run -r --parallel test",
-    "lint": "pnpm run -r --parallel lint"
-  },
+  "author": "Sain-Biswas",
+  "license": "ISC",
   "keywords": [
     "hono",
     "vite",
@@ -18,6 +14,14 @@
     "full-stack",
     "mern"
   ],
-  "author": "Sain-Biswas",
-  "license": "ISC"
+  "scripts": {
+    "dev": "pnpm run -r --parallel --aggregate-output dev",
+    "build": "pnpm run -r build",
+    "test": "pnpm run -r --parallel test",
+    "lint": "pnpm run -r --parallel lint"
+  },
+  "devDependencies": {
+    "tsc-alias": "^1.8.15",
+    "typescript": "^5.8.3"
+  }
 }

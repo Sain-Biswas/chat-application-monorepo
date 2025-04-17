@@ -1,0 +1,30 @@
+{
+  // Files to be checked by the TS LSP and Compiler
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "typeRoots": ["./node_modules/@types"],
+
+    // Bundler Mode
+    "verbatimModuleSyntax": true,
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "isolatedModules": true,
+
+    // Linting
+    "strict": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+
+  // TSC alias resolution
+  "tsc-alias": {
+    "resolveFullPaths": true
+  }
+}

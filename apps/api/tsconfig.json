@@ -1,14 +1,19 @@
 {
+  "extends": "../../tsconfig.json",
+
   "compilerOptions": {
-    "target": "ESNext",
+    "outDir": "./dist",
     "module": "NodeNext",
-    "strict": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
+    "typeRoots": ["./node_modules/@types", "./node_modules/@cloudflare"],
+
+    // Types
+    "types": ["node"],
+
+    // Linting
+    "baseUrl": "./",
+    "paths": {
+      "@/api/*": ["./src/*"]
+    }
   }
 }
