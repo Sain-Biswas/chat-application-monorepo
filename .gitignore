@@ -1,0 +1,48 @@
+# dependencies (bun install)
+node_modules
+.pnp
+.pnp.js
+
+# output
+out
+dist
+*.tgz
+
+# Testing
+coverage
+*.lcov
+
+# logs
+logs
+_.log
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+
+# dotenv environment variable files
+.env
+.env.*
+!.env.sample
+
+# Turbo
+.turbo
+
+# Vercel
+.vercel
+
+# caches
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# Build Outputs
+.next/
+out/
+build
+dist
+
+
+# IntelliJ based IDEs
+.idea
+
+# Misc
+.DS_Store
+*.pem
