@@ -47,6 +47,31 @@ export default tseslint.config(
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
-  json.configs.recommended,
-  markdown.configs.recommended
+  {
+    files: ["**/*.json"],
+    ignores: ["**/package-lock.json", "**/tsconfig.json"],
+    language: "json/json",
+    ...json.configs.recommended,
+  },
+  {
+    files: ["**/*.jsonc", "**/tsconfig.json"],
+    language: "json/jsonc",
+    ...json.configs.recommended,
+  },
+  {
+    files: ["**/*.json5"],
+    language: "json/json5",
+    ...json.configs.recommended,
+  },
+  {
+    files: ["**/*.md"],
+    plugins: {
+      markdown,
+    },
+    language: "markdown/gfm",
+    rules: {
+      "markdown/no-html": "error",
+    },
+    extends: [markdown.configs.recommended],
+  }
 );
