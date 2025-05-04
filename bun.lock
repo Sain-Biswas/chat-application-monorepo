@@ -3,9 +3,6 @@
   "workspaces": {
     "": {
       "name": "zaptalk",
-      "dependencies": {
-        "jiti": "^2.4.2",
-      },
       "devDependencies": {
         "@types/bun": "^1.2.11",
         "turbo": "^2.5.2",
@@ -58,9 +55,6 @@
     },
     "packages/eslint-config": {
       "name": "@zaptalk/eslint-config",
-      "dependencies": {
-        "jiti": "^2.4.2",
-      },
       "devDependencies": {
         "@eslint/css": "^0.7.0",
         "@eslint/js": "^9.26.0",
@@ -69,7 +63,10 @@
         "@types/bun": "latest",
         "eslint": "^9.26.0",
         "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.20",
         "globals": "^16.0.0",
+        "jiti": "^2.4.2",
         "typescript-eslint": "^8.31.1",
       },
       "peerDependencies": {
