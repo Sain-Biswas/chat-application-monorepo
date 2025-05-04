@@ -1,4 +1,4 @@
-# chat-application-react-hono
+# Zaptalk
 
 To install dependencies:
 

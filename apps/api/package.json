@@ -1,5 +1,5 @@
 {
-  "name": "@chat-application-react-hono/api",
+  "name": "@zaptalk/api",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "start": "bun run src/index.ts",

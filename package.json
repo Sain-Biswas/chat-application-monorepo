@@ -1,5 +1,5 @@
 {
-  "name": "chat-application-react-hono",
+  "name": "zaptalk",
   "module": "index.ts",
   "type": "module",
   "private": true,

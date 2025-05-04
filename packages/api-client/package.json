@@ -1,5 +1,5 @@
 {
-  "name": "api-client",
+  "name": "@zaptalk/api-client",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

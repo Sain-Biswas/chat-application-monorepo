@@ -1,5 +1,5 @@
 {
-  "name": "@chat-application-react-hono/web",
+  "name": "@zaptalk/web",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
