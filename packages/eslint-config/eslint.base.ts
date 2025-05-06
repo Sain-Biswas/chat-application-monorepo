@@ -3,13 +3,12 @@ import json from "@eslint/json";
 import markdown from "@eslint/markdown";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import prettier from "eslint-plugin-prettier/recommended";
 import stylistic from "@stylistic/eslint-plugin";
 import unicornEslint from "eslint-plugin-unicorn";
 
 export default tseslint.config(
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
+  tseslint.configs.strict,
+  tseslint.configs.stylistic,
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     plugins: { js },
@@ -80,13 +79,23 @@ export default tseslint.config(
     },
     extends: [markdown.configs.recommended],
   },
-  prettier,
-  stylistic.configs.customize({
-    semi: true,
-    jsx: true,
-    quotes: "double",
-    indent: 2,
-    arrowParens: true,
-  }),
-  unicornEslint.configs.recommended
+  {
+    ...stylistic.configs.customize({
+      semi: true,
+      jsx: true,
+      quotes: "double",
+      arrowParens: true,
+      quoteProps: "as-needed",
+      indent: 2,
+    }),
+    ignores: ["**/*.md", "**/*.json"],
+  },
+  {
+    ...unicornEslint.configs.recommended,
+    rules: {
+      ...unicornEslint.configs.recommended.rules,
+      "unicorn/prevent-abbreviations": "off",
+    },
+    ignores: ["**/*.md", "**/*.json"],
+  },
 );

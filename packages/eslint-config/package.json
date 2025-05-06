@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@eslint/css": "^0.7.0",
@@ -14,7 +15,6 @@
     "@types/bun": "^1.2.12",
     "eslint": "^9.26.0",
     "eslint-plugin-drizzle": "^0.2.3",
-    "eslint-plugin-prettier": "^5.3.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^6.0.0-rc.1",
     "eslint-plugin-react-refresh": "^0.4.20",

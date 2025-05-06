@@ -1,3 +1,1 @@
-import eslintReact from "../../packages/eslint-config/eslint.react";
-
-export default eslintReact;
+export { default } from "../../packages/eslint-config/eslint.react";
