@@ -3,13 +3,19 @@ import json from "@eslint/json";
 import markdown from "@eslint/markdown";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import prettier from "eslint-plugin-prettier/recommended";
+import stylistic from "@stylistic/eslint-plugin";
+import unicornEslint from "eslint-plugin-unicorn";
 
 export default tseslint.config(
-  tseslint.configs.strict,
-  tseslint.configs.stylistic,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     plugins: { js },
+    languageOptions: {
+      parser: tseslint.parser,
+    },
     rules: {
       ...js.configs.recommended.rules,
       "array-callback-return": [
@@ -73,5 +79,14 @@ export default tseslint.config(
       "markdown/no-html": "error",
     },
     extends: [markdown.configs.recommended],
-  }
+  },
+  prettier,
+  stylistic.configs.customize({
+    semi: true,
+    jsx: true,
+    quotes: "double",
+    indent: 2,
+    arrowParens: true,
+  }),
+  unicornEslint.configs.recommended
 );

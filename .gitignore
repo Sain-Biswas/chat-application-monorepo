@@ -3,6 +3,10 @@ node_modules
 .pnp
 .pnp.js
 
+# vscode
+.vscode
+!.vscode/settings.json
+
 # output
 out
 dist
