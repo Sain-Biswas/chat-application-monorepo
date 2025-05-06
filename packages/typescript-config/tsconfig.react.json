@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  "extends": "./tsconfig.base.json",
+
+  "compilerOptions": {
+    /* Environment setup & Latest features */
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "ES2020", "DOM", "DOM.Iterable"]
+  }
+}
