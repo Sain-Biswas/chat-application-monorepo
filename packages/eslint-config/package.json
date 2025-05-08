@@ -1,6 +1,7 @@
 {
   "name": "@zaptalk/eslint-config",
   "type": "module",
+  "module": "./index.ts",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

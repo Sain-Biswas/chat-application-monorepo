@@ -11,7 +11,8 @@
     "hono": "^4.7.8"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@zaptalk/eslint-config": "workspace:^"
   },
   "peerDependencies": {
     "typescript": "^5.8.3"
