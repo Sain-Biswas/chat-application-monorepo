@@ -18,11 +18,13 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "@zaptalk/eslint-config": "workspace:^",
+    "@zaptalk/ui": "workspace:^",
     "babel-plugin-react-compiler": "^19.1.0-rc.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "sass": "^1.87.0",
     "typescript": "^5.8.3",
-    "vite": "^6.3.1",
-    "@zaptalk/eslint-config": "workspace:^"
+    "vite": "^6.3.1"
   }
 }

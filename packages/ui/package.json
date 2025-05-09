@@ -1,16 +1,23 @@
 {
   "name": "@zaptalk/ui",
-  "module": "index.ts",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@zaptalk/eslint-config": "workspace:^"
+  "exports": {
+    "./*": "./src/*"
   },
-  "peerDependencies": {
-    "typescript": "^5"
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@zaptalk/eslint-config": "workspace:^",
+    "typescript": "~5.8.3"
   }
 }
