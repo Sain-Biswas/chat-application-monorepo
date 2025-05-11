@@ -8,7 +8,10 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "hono": "^4.7.8"
+    "@hono/swagger-ui": "^0.5.1",
+    "@hono/zod-openapi": "^0.19.6",
+    "hono": "^4.7.8",
+    "zod": "^4.0.0-beta.20250505T195954"
   },
   "devDependencies": {
     "@types/bun": "latest",
