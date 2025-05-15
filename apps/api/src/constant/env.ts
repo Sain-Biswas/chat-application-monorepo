@@ -1,0 +1,17 @@
+import z from "zod";
+
+const environmentVariableSchema = z.object({
+  DATABASE_URL: z.url(),
+  NODE_ENV: z.enum(["development", "production", "testing"]),
+});
+
+const environventVariable = environmentVariableSchema.safeParse(process.env);
+
+if (!environventVariable.success) {
+  console.error(environventVariable.error);
+  process.exit(1);
+}
+
+const env = environventVariable.data;
+
+export default env;

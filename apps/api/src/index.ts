@@ -1,5 +1,5 @@
-import { swaggerUI } from "@hono/swagger-ui";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
+import configureSwaggerUI from "./utility/swagger";
 
 const app = new OpenAPIHono();
 
@@ -26,19 +26,6 @@ app.openapi(
   }
 );
 
-app.get(
-  "/api/ui",
-  swaggerUI({
-    url: "/api/doc",
-  })
-);
-
-app.doc("/api/doc", {
-  openapi: "3.1.0",
-  info: {
-    version: "0.0.1",
-    title: "Zaptalk",
-  },
-});
+configureSwaggerUI(app);
 
 export default app;
