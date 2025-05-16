@@ -20,9 +20,7 @@ homeRoute.openapi(
     },
     description: "Home Route",
   }),
-  (c) => {
-    return c.json({ message: "Hello World!" }, 200);
-  }
+  (c) => c.json({ message: "Hello World!" }, 200),
 );
 
 export default homeRoute;
