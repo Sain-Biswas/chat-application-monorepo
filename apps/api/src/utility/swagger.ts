@@ -1,8 +1,8 @@
 import { swaggerUI } from "@hono/swagger-ui";
-import type { OpenAPIHono } from "@hono/zod-openapi";
 import env from "../constant/env";
+import type { TOpenAPIHono } from "../types/hono-open-api";
 
-export default function configureSwaggerUI(app: OpenAPIHono) {
+export default function configureSwaggerUI(app: TOpenAPIHono) {
   if (env?.NODE_ENV === "production") {
     return;
   }

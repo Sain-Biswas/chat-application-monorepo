@@ -14,4 +14,6 @@ if (!environventVariable.success) {
 
 const env = environventVariable.data;
 
+export { environmentVariableSchema };
+
 export default env;
