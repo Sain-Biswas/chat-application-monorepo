@@ -70,6 +70,6 @@ const HTTPStatusCodes = {
   LOOP_DETECTED: 508,
   NOT_EXTENDED: 510,
   NETWORK_AUTHENTICATION_REQUIRED: 511,
-};
+} as const;
 
 export default HTTPStatusCodes;

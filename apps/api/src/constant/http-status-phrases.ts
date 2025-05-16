@@ -70,6 +70,6 @@ const HTTPStatusPhrases = {
   LOOP_DETECTED: "Loop Detected",
   NOT_EXTENDED: "Not Extended",
   NETWORK_AUTHENTICATION_REQUIRED: "Network Authentication Required",
-};
+} as const;
 
 export default HTTPStatusPhrases;

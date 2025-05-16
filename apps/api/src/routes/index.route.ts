@@ -1,13 +1,15 @@
-import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
+import HTTPStatusCodes from "../constant/http-status-codes";
+import createOpenAPIRoute from "../lib/create-router";
 
-const homeRoute = new OpenAPIHono();
+const homeRoute = createOpenAPIRoute();
 
 homeRoute.openapi(
   createRoute({
     method: "get",
     path: "/",
     responses: {
-      200: {
+      [HTTPStatusCodes.OK]: {
         content: {
           "application/json": {
             schema: z.object({
@@ -20,7 +22,7 @@ homeRoute.openapi(
     },
     description: "Home Route",
   }),
-  (c) => c.json({ message: "Hello World!" }, 200),
+  (c) => c.json({ message: "Hello World!" }, HTTPStatusCodes.OK),
 );
 
 export default homeRoute;
