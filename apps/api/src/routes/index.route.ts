@@ -5,7 +5,7 @@ const homeRoute = new OpenAPIHono();
 homeRoute.openapi(
   createRoute({
     method: "get",
-    path: "/api",
+    path: "/",
     responses: {
       200: {
         content: {
