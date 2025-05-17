@@ -1,4 +1,4 @@
-const BASE_PATH = "/api";
+const BASE_PATH = "/api" as const;
 
 export default BASE_PATH;
 

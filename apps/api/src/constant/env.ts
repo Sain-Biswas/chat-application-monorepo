@@ -1,3 +1,4 @@
+import type { Env } from "hono";
 import z from "zod";
 
 const environmentVariableSchema = z.object({
@@ -20,3 +21,7 @@ const env = environventVariable.data;
 export { environmentVariableSchema };
 
 export default env;
+
+export interface ParsedSchema
+  extends Env,
+  z.infer<typeof environmentVariableSchema> {}

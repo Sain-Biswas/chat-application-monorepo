@@ -1,11 +1,11 @@
 import createOpenAPIApp from "@/lib/create-app";
 import registerOpenAPIRoutes from "@/routes";
 import configureSwaggerUI from "@/utility/swagger";
+import configureDefaultHandlers from "./lib/configure-default-handlers";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const app: any = createOpenAPIApp();
+const app = registerOpenAPIRoutes(createOpenAPIApp());
 
-registerOpenAPIRoutes(app);
+configureDefaultHandlers(app);
 
 configureSwaggerUI(app);
 

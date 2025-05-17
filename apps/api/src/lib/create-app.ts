@@ -1,10 +1,16 @@
-import routeErrorHandler from "@/lib/route-error.handler";
-import routerNotFoundHandler from "@/lib/route-not-found.handler";
-import type { IAppBindings } from "@/types/hono-open-api";
-import { OpenAPIHono } from "@hono/zod-openapi";
+import BASE_PATH from "@/constant/base-path";
+import type { TOpenAPIHono } from "@/types/hono-open-api";
+import { serveStatic } from "hono/bun";
+import createOpenAPIRoute from "./create-router";
 
 export default function createOpenAPIApp() {
-  return new OpenAPIHono<IAppBindings>()
-    .notFound(routerNotFoundHandler)
-    .onError(routeErrorHandler);
+  const app = createOpenAPIRoute()
+    .use("*", (c, next) => {
+      if (c.req.path.startsWith(BASE_PATH)) return next();
+
+      return serveStatic({ root: "./public" })(c, next);
+    })
+    .basePath(BASE_PATH) as TOpenAPIHono;
+
+  return app;
 }
