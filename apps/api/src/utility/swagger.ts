@@ -9,7 +9,7 @@ export default function configureSwaggerUI(app: TOpenAPIHono) {
     "/api/swagger",
     swaggerUI({
       url: "/api/openapi",
-    })
+    }),
   );
 
   app.doc("/api/openapi", {

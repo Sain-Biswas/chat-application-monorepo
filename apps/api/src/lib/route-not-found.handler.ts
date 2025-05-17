@@ -13,7 +13,7 @@ const routerNotFoundHandler: NotFoundHandler = (c) =>
       code: "NOT_FOUND",
       path: c.req.path,
     },
-    HTTPStatusCodes.NOT_FOUND
+    HTTPStatusCodes.NOT_FOUND,
   );
 
 export default routerNotFoundHandler;

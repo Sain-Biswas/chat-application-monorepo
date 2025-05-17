@@ -22,7 +22,7 @@ homeRoute.openapi(
     },
     description: "Home Route",
   }),
-  (c) => c.json({ message: "Hello World!" }, HTTPStatusCodes.OK)
+  (c) => c.json({ message: "Hello World!" }, HTTPStatusCodes.OK),
 );
 
 export default homeRoute;

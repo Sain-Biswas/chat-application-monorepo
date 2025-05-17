@@ -16,7 +16,7 @@ const routerErrorHandler: ErrorHandler = (_error, c) =>
       timestamp: new Date(),
       path: c.req.path,
     },
-    HTTPStatusCodes.INTERNAL_SERVER_ERROR
+    HTTPStatusCodes.INTERNAL_SERVER_ERROR,
   );
 
 export default routerErrorHandler;
