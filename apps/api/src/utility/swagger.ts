@@ -1,16 +1,9 @@
 import env from "@/constant/env";
 import type { TOpenAPIHono } from "@/types/hono-open-api";
-import { swaggerUI } from "@hono/swagger-ui";
+import { Scalar } from "@scalar/hono-api-reference";
 
 export default function configureSwaggerUI(app: TOpenAPIHono) {
   if (env?.NODE_ENV === "production") return;
-
-  app.get(
-    "/api/swagger",
-    swaggerUI({
-      url: "/api/openapi",
-    }),
-  );
 
   app.doc("/api/openapi", {
     openapi: "3.1.0",
@@ -19,4 +12,9 @@ export default function configureSwaggerUI(app: TOpenAPIHono) {
       title: "Zaptalk",
     },
   });
+
+  app.get(
+    "/api/reference",
+    Scalar({ url: "/api/openapi", theme: "deepSpace" })
+  );
 }
