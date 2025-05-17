@@ -1,5 +1,5 @@
+import HTTPStatusKeys from "@/constant/http-status-keys";
 import z from "zod";
-import HTTPStatusKeys from "../constant/http-status-keys";
 
 const ErrorNames = [
   "SERVER_ERROR",

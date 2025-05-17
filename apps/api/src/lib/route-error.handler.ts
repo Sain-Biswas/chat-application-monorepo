@@ -1,6 +1,6 @@
+import HTTPStatusCodes from "@/constant/http-status-codes";
+import type { TDefaultError } from "@/validator/default-error";
 import type { ErrorHandler } from "hono";
-import HTTPStatusCodes from "../constant/http-status-codes";
-import type { TDefaultError } from "../validator/default-error";
 
 const routerErrorHandler: ErrorHandler = (_error, c) =>
   c.json<TDefaultError>(
@@ -16,7 +16,7 @@ const routerErrorHandler: ErrorHandler = (_error, c) =>
       timestamp: new Date(),
       path: c.req.path,
     },
-    HTTPStatusCodes.INTERNAL_SERVER_ERROR,
+    HTTPStatusCodes.INTERNAL_SERVER_ERROR
   );
 
 export default routerErrorHandler;

@@ -1,8 +1,8 @@
-import createOpenAPIApp from "./lib/create-app";
-import registerOpenAPIRoutes from "./routes";
-import configureSwaggerUI from "./utility/swagger";
+import createOpenAPIApp from "@/lib/create-app";
+import registerOpenAPIRoutes from "@/routes";
+import configureSwaggerUI from "@/utility/swagger";
 
-const app = createOpenAPIApp();
+const app: any = createOpenAPIApp();
 
 registerOpenAPIRoutes(app);
 

@@ -1,5 +1,7 @@
-import HTTPStatusCodes from "./http-status-codes";
+import HTTPStatusCodes from "@/constant/http-status-codes";
 
-const HTTPStatusKeys = Object.keys(HTTPStatusCodes) as (keyof typeof HTTPStatusCodes)[];
+const HTTPStatusKeys = Object.keys(
+  HTTPStatusCodes
+) as (keyof typeof HTTPStatusCodes)[];
 
 export default HTTPStatusKeys;

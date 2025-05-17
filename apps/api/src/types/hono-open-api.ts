@@ -1,4 +1,4 @@
-import type { Hono } from "hono";
+import type { OpenAPIHono } from "@hono/zod-openapi";
 
 export interface IAppBindings {
   Variables: {
@@ -6,4 +6,4 @@ export interface IAppBindings {
   };
 }
 
-export type TOpenAPIHono = Hono<IAppBindings>;
+export type TOpenAPIHono = OpenAPIHono<IAppBindings>;

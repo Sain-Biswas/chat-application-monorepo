@@ -1,5 +1,5 @@
+import HTTPStatusCodes from "@/constant/http-status-codes";
 import type { NotFoundHandler } from "hono";
-import HTTPStatusCodes from "../constant/http-status-codes";
 
 const routerNotFoundHandler: NotFoundHandler = (c) =>
   c.json(
@@ -13,7 +13,7 @@ const routerNotFoundHandler: NotFoundHandler = (c) =>
       code: "NOT_FOUND",
       path: c.req.path,
     },
-    HTTPStatusCodes.NOT_FOUND,
+    HTTPStatusCodes.NOT_FOUND
   );
 
 export default routerNotFoundHandler;

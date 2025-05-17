@@ -1,6 +1,6 @@
+import HTTPStatusCodes from "@/constant/http-status-codes";
+import createOpenAPIRoute from "@/lib/create-router";
 import { createRoute, z } from "@hono/zod-openapi";
-import HTTPStatusCodes from "../constant/http-status-codes";
-import createOpenAPIRoute from "../lib/create-router";
 
 const homeRoute = createOpenAPIRoute();
 
@@ -22,7 +22,7 @@ homeRoute.openapi(
     },
     description: "Home Route",
   }),
-  (c) => c.json({ message: "Hello World!" }, HTTPStatusCodes.OK),
+  (c) => c.json({ message: "Hello World!" }, HTTPStatusCodes.OK)
 );
 
 export default homeRoute;
