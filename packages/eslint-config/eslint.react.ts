@@ -1,8 +1,9 @@
+import globals from "globals";
 import tseslint from "typescript-eslint";
 import baseConfig from "./eslint.base";
-import globals from "globals";
 
 import css from "@eslint/css";
+import reactQuery from "@tanstack/eslint-plugin-query";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -33,4 +34,5 @@ export default tseslint.config(
       "react/react-in-jsx-scope": "off",
     },
   },
+  ...reactQuery.configs["flat/recommended"],
 );

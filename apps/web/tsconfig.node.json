@@ -7,7 +7,6 @@
     /* Path Reference */
     "baseUrl": ".",
     "paths": {
-      "@/packages/*": ["../../packages/*"],
       "@/web/*": ["./src/*"],
       "#/web/*": ["./public/*"]
     }

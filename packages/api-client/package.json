@@ -2,6 +2,7 @@
   "name": "@zaptalk/api-client",
   "module": "index.ts",
   "type": "module",
+  "main": "./dist/index.js",
   "scripts": {
     "dev": "tsc --watch",
     "build": "rm -rf dist && tsc",
@@ -19,5 +20,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "exports": {
+    "./*": "./dist/*"
   }
 }
