@@ -1,10 +1,11 @@
-import type { Env } from "hono";
 import z from "zod";
 
 const environmentVariableSchema = z.object({
   DATABASE_URL: z.url(),
   NODE_ENV: z["enum"](["development", "production", "testing"]),
   PORT: z.coerce.number(),
+  BETTER_AUTH_SECRET: z.string(),
+  BETTER_AUTH_URL: z.string(),
 });
 
 const environventVariable = environmentVariableSchema.safeParse(process.env);
@@ -22,6 +23,4 @@ export { environmentVariableSchema };
 
 export default env;
 
-export interface ParsedSchema
-  extends Env,
-  z.infer<typeof environmentVariableSchema> {}
+export type ParsedSchema = z.infer<typeof environmentVariableSchema>;

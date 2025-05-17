@@ -3,3 +3,6 @@ node_modules/
 
 # Vite generated static files
 public/
+
+# Better Auth
+auth-schema.ts
