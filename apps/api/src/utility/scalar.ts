@@ -2,10 +2,10 @@ import env from "@/api/constant/env";
 import type { TOpenAPIHono } from "@/api/types/hono-open-api";
 import { Scalar } from "@scalar/hono-api-reference";
 
-export default function configureSwaggerUI(app: TOpenAPIHono) {
+export default function configureScalarUI(app: TOpenAPIHono) {
   if (env?.NODE_ENV === "production") return;
 
-  app.doc("/api/openapi", {
+  app.doc("/openapi", {
     openapi: "3.1.0",
     info: {
       version: "0.0.1",
@@ -13,8 +13,5 @@ export default function configureSwaggerUI(app: TOpenAPIHono) {
     },
   });
 
-  app.get(
-    "/api/reference",
-    Scalar({ url: "/api/openapi", theme: "deepSpace" }),
-  );
+  app.get("/reference", Scalar({ url: "/api/openapi", theme: "deepSpace" }));
 }
