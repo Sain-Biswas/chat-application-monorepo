@@ -15,4 +15,13 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
+  build: {
+    outDir: "../api/public",
+    emptyOutDir: true,
+  },
 });

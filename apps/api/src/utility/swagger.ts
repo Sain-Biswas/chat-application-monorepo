@@ -15,6 +15,6 @@ export default function configureSwaggerUI(app: TOpenAPIHono) {
 
   app.get(
     "/api/reference",
-    Scalar({ url: "/api/openapi", theme: "deepSpace" })
+    Scalar({ url: "/api/openapi", theme: "deepSpace" }),
   );
 }

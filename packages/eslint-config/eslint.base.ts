@@ -1,10 +1,10 @@
 import js from "@eslint/js";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
-import globals from "globals";
-import tseslint from "typescript-eslint";
 import stylistic from "@stylistic/eslint-plugin";
 import unicornEslint from "eslint-plugin-unicorn";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   tseslint.configs.strict,
@@ -96,6 +96,6 @@ export default tseslint.config(
       ...unicornEslint.configs.recommended.rules,
       "unicorn/prevent-abbreviations": "off",
     },
-    ignores: ["**/*.md", "**/*.json"],
+    ignores: ["**/*.md", "**/*.json", "**/routeTree.gen.ts"],
   },
 );
