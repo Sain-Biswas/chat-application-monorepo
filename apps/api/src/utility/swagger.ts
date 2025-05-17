@@ -1,5 +1,5 @@
-import env from "@/constant/env";
-import type { TOpenAPIHono } from "@/types/hono-open-api";
+import env from "@/api/constant/env";
+import type { TOpenAPIHono } from "@/api/types/hono-open-api";
 import { Scalar } from "@scalar/hono-api-reference";
 
 export default function configureSwaggerUI(app: TOpenAPIHono) {

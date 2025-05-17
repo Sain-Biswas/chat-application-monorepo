@@ -1,5 +1,5 @@
-import HTTPStatusCodes from "@/constant/http-status-codes";
-import type { TDefaultError } from "@/validator/default-error";
+import HTTPStatusCodes from "@/api/constant/http-status-codes";
+import type { TDefaultError } from "@/api/validator/default-error";
 import type { ErrorHandler } from "hono";
 
 const routerErrorHandler: ErrorHandler = (_error, c) =>
@@ -9,7 +9,7 @@ const routerErrorHandler: ErrorHandler = (_error, c) =>
       error: {
         message: "Something went wrong",
         detail:
-          "Server returned an unexpected error, Try again after some time.",
+          "Server returne/apid an unexpected error, Try again after some time.",
         name: "SERVER_ERROR",
       },
       code: "INTERNAL_SERVER_ERROR",

@@ -27,5 +27,8 @@
     "exclude": [
       "node_modules"
     ]
+  },
+  "exports": {
+    "./types/*": "./src/types/*"
   }
 }

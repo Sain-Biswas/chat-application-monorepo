@@ -1,4 +1,4 @@
-import HTTPStatusCodes from "@/constant/http-status-codes";
+import HTTPStatusCodes from "@/api/constant/http-status-codes";
 import type { NotFoundHandler } from "hono";
 
 const routerNotFoundHandler: NotFoundHandler = (c) =>

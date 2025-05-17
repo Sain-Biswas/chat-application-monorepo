@@ -1,4 +1,4 @@
-import HTTPStatusCodes from "@/constant/http-status-codes";
+import HTTPStatusCodes from "@/api/constant/http-status-codes";
 
 const HTTPStatusKeys = Object.keys(
   HTTPStatusCodes,

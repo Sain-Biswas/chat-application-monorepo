@@ -1,7 +1,7 @@
-import env from "@/constant/env";
+import env from "@/api/constant/env";
 import { drizzle } from "drizzle-orm/neon-http";
 
-import * as schema from "@/database/schema/index.schema";
+import * as schema from "@/api/database/schema/index.schema";
 
 const databaseClient = drizzle(env.DATABASE_URL, {
   schema,

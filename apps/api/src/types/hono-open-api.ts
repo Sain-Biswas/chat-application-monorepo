@@ -1,5 +1,5 @@
-import type { TBASE_PATH } from "@/constant/base-path";
-import type { ParsedSchema } from "@/constant/env";
+import type { TBASE_PATH } from "@/api/constant/base-path";
+import type { ParsedSchema } from "@/api/constant/env";
 import type { OpenAPIHono } from "@hono/zod-openapi";
 
 export interface IAppBindings {

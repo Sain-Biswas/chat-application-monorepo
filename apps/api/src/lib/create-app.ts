@@ -1,5 +1,5 @@
-import BASE_PATH from "@/constant/base-path";
-import type { TOpenAPIHono } from "@/types/hono-open-api";
+import BASE_PATH from "@/api/constant/base-path";
+import type { TOpenAPIHono } from "@/api/types/hono-open-api";
 import { serveStatic } from "hono/bun";
 import createOpenAPIRoute from "./create-router";
 

@@ -1,10 +1,8 @@
-import HTTPStatusCodes from "@/constant/http-status-codes";
-import createOpenAPIRoute from "@/lib/create-router";
+import HTTPStatusCodes from "@/api/constant/http-status-codes";
+import createOpenAPIRoute from "@/api/lib/create-router";
 import { createRoute, z } from "@hono/zod-openapi";
 
-const homeRoute = createOpenAPIRoute();
-
-homeRoute.openapi(
+const homeRoute = createOpenAPIRoute().openapi(
   createRoute({
     method: "get",
     path: "/",

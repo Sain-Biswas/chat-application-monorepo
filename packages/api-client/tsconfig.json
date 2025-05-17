@@ -1,5 +1,28 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
 
-  "extends": "../typescript-config/tsconfig.base.json"
+  "extends": "../typescript-config/tsconfig.base.json",
+
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "noEmit": false,
+    "allowImportingTsExtensions": null,
+
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["bun"],
+
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@/api/*": ["../../apps/api/src/*"]
+    }
+  },
+  "watchOptions": {
+    "excludeDirectories": ["**/node_modules", "**/packages/web"]
+  },
+  "include": ["src"]
 }
