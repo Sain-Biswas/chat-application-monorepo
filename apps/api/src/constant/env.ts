@@ -6,6 +6,10 @@ const environmentVariableSchema = z.object({
   PORT: z.coerce.number(),
   BETTER_AUTH_SECRET: z.string(),
   BETTER_AUTH_URL: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_EMAIL: z.string(),
+  GOOGLE_CLIENT_REFRESH_TOKEN: z.string(),
 });
 
 const environventVariable = environmentVariableSchema.safeParse(process.env);
