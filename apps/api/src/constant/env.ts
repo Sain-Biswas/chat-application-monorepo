@@ -12,16 +12,16 @@ const environmentVariableSchema = z.object({
   GOOGLE_CLIENT_REFRESH_TOKEN: z.string(),
 });
 
-const environventVariable = environmentVariableSchema.safeParse(process.env);
+const environmentVariable = environmentVariableSchema.safeParse(process.env);
 
-if (!environventVariable.success) {
+if (!environmentVariable.success) {
   // eslint-disable-next-line no-console
-  console.error(environventVariable.error);
+  console.error(environmentVariable.error);
   // eslint-disable-next-line unicorn/no-process-exit
   process.exit(1);
 }
 
-const env = environventVariable.data;
+const env = environmentVariable.data;
 
 export { environmentVariableSchema };
 

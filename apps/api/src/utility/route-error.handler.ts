@@ -9,7 +9,7 @@ const routerErrorHandler: ErrorHandler = (_error, c) =>
       error: {
         message: "Something went wrong",
         detail:
-          "Server returne/apid an unexpected error, Try again after some time.",
+          "Server returned an unexpected error, Try again after some time.",
         name: "SERVER_ERROR",
       },
       code: "INTERNAL_SERVER_ERROR",

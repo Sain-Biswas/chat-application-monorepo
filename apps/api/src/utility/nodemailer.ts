@@ -15,11 +15,11 @@ export const transporter = createTransport({
   },
 });
 
-export async function sendVerificationEmail(token: string, reciever: string) {
+export async function sendVerificationEmail(token: string, receiver: string) {
   await transporter.sendMail({
     from: env.GOOGLE_CLIENT_EMAIL,
     subject: "ZapTalk Verification Email",
-    to: reciever,
+    to: receiver,
     html: `<div>${token}</div>`,
   });
 }

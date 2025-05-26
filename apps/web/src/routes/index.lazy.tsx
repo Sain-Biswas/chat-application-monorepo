@@ -8,8 +8,7 @@ function Index() {
     queryFn: async () => client.api.$get().then((response) => response.json()),
   });
 
-  if (isLoading)
-    return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="p-2">

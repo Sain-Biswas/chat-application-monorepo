@@ -6,14 +6,13 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-function RootComponet() {
+function RootComponent() {
   return (
     <>
       <div className="flex gap-2 p-2">
         <Link to="/" className="[&.active]:font-bold">
           Home
-        </Link>
-        {" "}
+        </Link>{" "}
         <Link to="/about" className="[&.active]:font-bold">
           About
         </Link>
@@ -28,7 +27,7 @@ function RootComponet() {
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
-  component: RootComponet,
+  component: RootComponent,
   notFoundComponent: () => (
     <div>
       <p>Requested page not found</p>
