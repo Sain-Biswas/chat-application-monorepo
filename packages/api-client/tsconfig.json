@@ -9,7 +9,7 @@
     "allowImportingTsExtensions": null,
 
     "typeRoots": ["./node_modules/@types"],
-    "types": ["bun"],
+    // "types": ["bun"],
 
     "outDir": "dist",
     "declaration": true,

@@ -10,9 +10,11 @@ const homeRoute = createOpenAPIRoute().openapi(
       [HTTPStatusCodes.OK]: {
         content: {
           "application/json": {
-            schema: z.object({
-              message: z.string(),
-            }),
+            schema: z
+              .object({
+                message: z.string().openapi({ example: "Hello World!" }),
+              })
+              .openapi("message"),
           },
         },
         description: "Success Response",
