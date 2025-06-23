@@ -1,17 +1,11 @@
-import { boolean, date, pgTable, text } from "drizzle-orm/pg-core";
-import { ulid } from "ulid";
+import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-export const userSchema = pgTable("USERS", {
-  id: text("ID")
-    .primaryKey()
-    .$defaultFn(() => ulid()),
-  name: text("NAME").notNull(),
-  email: text("EMAIL").notNull().unique(),
-  emailVerified: boolean("EMAIL_VERIFIED")["default"](false),
-  image: text("IMAGE"),
-  password: text("PASSWORD"),
-  createdAt: date("CREATED_AT", { mode: "date" }).$defaultFn(() => new Date()),
-  updatedAt: date("UPDATED_AT", { mode: "date" })
-    .$defaultFn(() => new Date())
-    .$onUpdateFn(() => new Date()),
+export const userSchema = pgTable("user", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  emailVerified: boolean("email_verified").$defaultFn(() => false).notNull(),
+  image: text("image"),
+  createdAt: timestamp("created_at").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
+  updatedAt: timestamp("updated_at").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
 });
