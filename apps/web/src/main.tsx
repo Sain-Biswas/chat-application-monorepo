@@ -1,5 +1,5 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import "@zaptalk/ui/styles/global.scss";
+import "@zaptalk/ui/styles/styles.scss";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
