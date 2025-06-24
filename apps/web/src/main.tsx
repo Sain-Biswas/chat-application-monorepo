@@ -15,6 +15,7 @@ const router = createRouter({
   routeTree,
   context: {
     queryClient,
+    session: undefined,
   },
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
@@ -27,6 +28,8 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
+
+export type MainRouter = typeof router;
 
 // Render the app
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
