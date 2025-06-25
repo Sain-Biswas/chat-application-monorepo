@@ -3,7 +3,10 @@ import Button from "@zaptalk/ui/components/button.tsx";
 
 function TestPage() {
   return (
-    <main>
+    <main style={{
+      padding: 20,
+    }}
+    >
       <Button>
         <p>Hello</p>
         <p>Testing</p>

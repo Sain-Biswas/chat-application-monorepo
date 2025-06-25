@@ -8,17 +8,34 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "",
+        primary: "button-base__default",
+        tonal: "button-base__tonal",
+        outlined: "button-base__outlined",
+        text: "button-base__text",
+        elevated: "button-base__elevated",
+      },
+      shape: {
+        rounded: "button-base__rounded",
+        square: "button-base__square",
+      },
+      size: {
+        "xtra-small": "button-base__xtra-small",
+        small: "button-base__small",
+        medium: "button-base__medium",
+        large: "button-base__large",
+        "xtra-large": "button-base__xtra-large",
       },
       defaultVariants: {
-        variant: "default",
+        variant: "primary",
+        shape: "rounded",
+        size: "small",
       },
     },
   },
 );
 
-export default function Button({ className, variant, asChild = false, ...props }: ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
+export default function Button({ className, variant = "primary", shape = "rounded", size = "small", asChild = false, ...props }: ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
   const Component = asChild ? Slot : "button";
 
-  return <Component data-slot="button" className={cn(buttonVariants({ variant, className }))} {...props} />;
+  return <Component data-slot="button" className={cn(buttonVariants({ variant, shape, size, className }))} {...props} />;
 }

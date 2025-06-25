@@ -1,9 +1,53 @@
-.button-base{
-    display: inline-flex;
-    flex-direction: row;
-    justify-items: center;
-    gap: 0.25rem;
-    outline: none;
-    background-color: transparent;
-    border: none;
+.button-base {
+  display: inline-flex;
+  flex-direction: row;
+  justify-items: center;
+  gap: 0.25rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  align-items: center;
+
+  /* Variants */
+  &__default {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  &__tonal {
+  }
+
+  &__outlined {
+  }
+
+  &__text {
+  }
+
+  &__elevated {
+  }
+
+  /* Shapes */
+  &__rounded {
+    border-radius: 999999999999px;
+  }
+
+  &__square {
+  }
+
+  /* Sizes */
+  &__xtra-small {
+  }
+
+  &__small {
+    padding: 12px 16px;
+  }
+
+  &__medium {
+  }
+
+  &__large {
+  }
+
+  &__xtra-large {
+  }
 }

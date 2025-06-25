@@ -23,5 +23,10 @@
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
-  "cSpell.words": ["eslintcache", "TBASE", "zaptalk"]
+  "cSpell.words": [
+    "eslintcache",
+    "TBASE",
+    "xtra",
+    "zaptalk"
+  ]
 }
