@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "button-base__default",
+        primary: "button-base__primary",
         tonal: "button-base__tonal",
         outlined: "button-base__outlined",
         text: "button-base__text",
