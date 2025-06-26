@@ -1,9 +1,42 @@
+@use "../_utils" as u;
+
 .mode-toggle {
-  aspect-ratio: 1/1;
-  color: currentColor;
+  width: u.rem(56);
+  height: u.rem(56);
+
+  /* Center the icon */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &__light-mode {
+    width: u.rem(24);
+    height: u.rem(24);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    --transform-scale-x: 1;
+    --transform-scale-y: 1;
+    --transform-rotate: 0;
   }
 
   &__dark-mode {
+    width: u.rem(24);
+    height: u.rem(24);
+    display: none;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    --transform-scale-x: 0;
+    --transform-scale-y: 0;
+    --transform-rotate: 90deg;
   }
+}
+
+.dark .mode-toggle__dark-mode {
+  display: inline-block;
+}
+
+.dark .mode-toggle__light-mode {
+  display: none;
 }
