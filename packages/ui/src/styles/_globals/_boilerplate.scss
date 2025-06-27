@@ -7,8 +7,8 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--color-background);
-  color: var(--color-on-background);
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-on-surface));
 }
 
 img {
@@ -17,7 +17,7 @@ img {
 }
 
 .svg {
-  &__outlined:hover {
+  &:hover .svg__outlined {
     display: none;
   }
 
@@ -25,7 +25,7 @@ img {
     display: none;
   }
 
-  &__filled:hover {
+  &:hover .svg__filled {
     display: inline-block;
   }
 }

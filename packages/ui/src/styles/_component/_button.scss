@@ -1,5 +1,11 @@
 @use "../_utils" as u;
 
+$radius-square-xtra-small: 12;
+$radius-square-small: 12;
+$radius-square-medium: 16;
+$radius-square-large: 28;
+$radius-square-xtra-large: 28;
+
 .button-base {
   display: inline-flex;
   flex-direction: row;
@@ -12,51 +18,215 @@
 
   /* Variants */
   &__primary {
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--color-on-primary));
+    transition: 0.1s;
+
+    & .button-base__icon {
+      color: rgb(var(--color-on-primary));
+    }
 
     &:disabled {
-      background-color: var(--color-surface-container);
-      color: var(--color-on-surface-variant);
-      opacity: 0.38;
+      background-color: rgba(var(--color-on-surface), 0.1);
+      color: rgb(var(--color-on-surface), 0.38);
 
       & .button-base__icon {
-        color: var(--color-on-surface);
+        color: rgb(var(--color-on-surface), 0.38);
       }
     }
 
-    &:hover {
-      background-color: var(--color-primary-container);
-      color: var(--color-on-primary-container);
+    &:hover:not(:disabled) {
+      background-color: rgb(var(--color-primary), 0.08);
+      color: rgb(var(--color-primary));
+
+      & .button-base__icon {
+        color: rgb(var(--color-primary));
+      }
     }
 
-    &:focus-visible {
-      background-color: var(--color-primary-container);
-      color: var(--color-on-primary-container);
-      outline: u.rem(3) solid var(--color-primary);
+    &:focus-visible:not(:disabled) {
+      background-color: rgba(var(--color-primary), 0.1);
+      color: rgb(var(--color-primary));
+
+      outline: u.rem(3) solid rgb(var(--color-primary));
       outline-offset: u.rem(2);
+
+      & .button-base__icon {
+        color: rgb(var(--color-primary));
+      }
     }
   }
 
   &__tonal {
+    background-color: rgb(var(--color-secondary-container));
+    color: rgb(var(--color-on-secondary-container));
+    transition: 0.1s;
+
+    & .button-base__icon {
+      color: rgb(var(--color-on-secondary-container));
+    }
+
+    &:disabled {
+      background-color: rgba(var(--color-on-surface), 0.1);
+      color: rgb(var(--color-on-surface), 0.38);
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-surface), 0.38);
+      }
+    }
+
+    &:hover:not(:disabled) {
+      background-color: rgb(var(--color-on-secondary-container), 0.08);
+      color: rgb(var(--color-on-secondary-container));
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-secondary-container));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      background-color: rgba(var(--color-on-secondary-container), 0.1);
+      color: rgb(var(--color-on-secondary-container));
+
+      outline: u.rem(3) solid rgb(var(--color-on-secondary-container));
+      outline-offset: u.rem(2);
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-secondary-container));
+      }
+    }
   }
 
   &__outlined {
+    outline: u.rem(2) solid rgb(var(--color-outline-variant));
+    color: rgb(var(--color-on-surface-variant));
+    transition: 0.1s;
+
+    & .button-base__icon {
+      color: rgb(var(--color-on-surface-variant));
+    }
+
+    &:disabled {
+      outline: u.rem(2) solid rgb(var(--color-outline-variant));
+      color: rgb(var(--color-on-surface), 0.38);
+      background-color: rgba(var(--color-on-surface), 0.1);
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-surface), 0.38);
+        fill: rgb(var(--color-on-surface), 0.38);
+      }
+    }
+
+    &:hover:not(:disabled) {
+      outline: u.rem(2) solid rgb(var(--color-outline-variant));
+      color: rgb(var(--color-on-surface-variant));
+      background-color: rgba(var(--color-on-surface-variant), 0.08);
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-surface-variant));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      border: u.rem(2) solid rgb(var(--color-outline-variant));
+      color: rgb(var(--color-on-surface-variant));
+      background-color: rgba(var(--color-on-surface-variant), 0.1);
+
+      outline: u.rem(3) solid rgb(var(--color-on-surface-variant));
+      outline-offset: u.rem(2);
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-surface-variant));
+      }
+    }
   }
 
   &__text {
+    color: rgb(var(--color-primary));
+    transition: 0.1s;
+
+    & .button-base__icon {
+      color: rgb(var(--color-primary));
+    }
+
+    &:disabled {
+      background-color: rgba(var(--color-on-surface), 0.1);
+      color: rgb(var(--color-on-surface), 0.38);
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-surface), 0.38);
+      }
+    }
+
+    &:hover:not(:disabled) {
+      background-color: rgb(var(--color-primary), 0.08);
+      color: rgb(var(--color-primary));
+
+      & .button-base__icon {
+        color: rgb(var(--color-primary));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      background-color: rgba(var(--color-primary), 0.1);
+      color: rgb(var(--color-primary));
+
+      outline: u.rem(3) solid rgb(var(--color-primary));
+      outline-offset: u.rem(2);
+
+      & .button-base__icon {
+        color: rgb(var(--color-primary));
+      }
+    }
   }
 
   &__elevated {
+    background-color: rgb(var(--color-surface-container-low));
+    color: rgb(var(--color-primary));
+    box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+    transition: 0.1s;
+
+    & .button-base__icon {
+      color: rgb(var(--color-primary));
+    }
+
+    &:disabled {
+      background-color: rgba(var(--color-on-surface), 0.1);
+      color: rgb(var(--color-on-surface), 0.38);
+      box-shadow: none;
+
+      & .button-base__icon {
+        color: rgb(var(--color-on-surface), 0.38);
+      }
+    }
+
+    &:hover:not(:disabled) {
+      background-color: rgb(var(--color-primary), 0.08);
+      color: rgb(var(--color-primary));
+      box-shadow: 0 4px 12px 0 rgba(var(--color-shadow), 1);
+
+      & .button-base__icon {
+        color: rgb(var(--color-primary));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      background-color: rgba(var(--color-primary), 0.1);
+      color: rgb(var(--color-primary));
+      box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+
+      outline: u.rem(3) solid rgb(var(--color-primary));
+      outline-offset: u.rem(2);
+
+      & .button-base__icon {
+        color: rgb(var(--color-primary));
+      }
+    }
   }
 
   /* Shapes */
   &__rounded {
     border-radius: var(--radius-rounded);
-  }
-
-  &__square {
-    border-radius: u.rem(12);
   }
 
   /* Sizes */
@@ -71,6 +241,10 @@
       height: u.rem(20);
       width: u.rem(20);
     }
+
+    &.button-base__square {
+      border-radius: u.rem($radius-square-xtra-small);
+    }
   }
 
   &__small {
@@ -83,6 +257,10 @@
     & .button-base__icon {
       height: u.rem(20);
       width: u.rem(20);
+    }
+
+    &.button-base__square {
+      border-radius: u.rem($radius-square-small);
     }
   }
 
@@ -97,6 +275,10 @@
       height: u.rem(24);
       width: u.rem(24);
     }
+
+    &.button-base__square {
+      border-radius: u.rem($radius-square-medium);
+    }
   }
 
   &__large {
@@ -110,6 +292,10 @@
       height: u.rem(32);
       width: u.rem(32);
     }
+
+    &.button-base__square {
+      border-radius: u.rem($radius-square-large);
+    }
   }
 
   &__xtra-large {
@@ -122,6 +308,10 @@
     & .button-base__icon {
       height: u.rem(40);
       width: u.rem(40);
+    }
+
+    &.button-base__square {
+      border-radius: u.rem($radius-square-xtra-large);
     }
   }
 }
