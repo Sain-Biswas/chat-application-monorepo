@@ -9,5 +9,7 @@ export const sessionSchema = pgTable("session", {
   updatedAt: timestamp("updated_at").notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  userId: text("user_id").notNull().references(() => userSchema.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userSchema.id, { onDelete: "cascade" }),
 });

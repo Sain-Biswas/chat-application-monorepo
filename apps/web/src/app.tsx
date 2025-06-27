@@ -11,11 +11,14 @@ interface RootAppProps {
 export default function RootApp({ queryClient, router }: RootAppProps) {
   const { data, isPending, error } = useSession();
 
-  if (isPending)
-    return <div>Loading auth...</div>;
+  if (isPending) return <div>Loading auth...</div>;
 
-  if (error)
-    return <div>{error.message}</div>;
+  if (error) return <div>{error.message}</div>;
 
-  return <RouterProvider router={router} context={{ queryClient, session: data && undefined }} />;
+  return (
+    <RouterProvider
+      router={router}
+      context={{ queryClient, session: data ?? undefined }}
+    />
+  );
 }

@@ -5,6 +5,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 function Index() {
   const { data, isLoading } = useQuery({
     queryKey: ["home"],
+    // eslint-disable-next-line require-await
     queryFn: async () => client.api.$get().then((response) => response.json()),
   });
 

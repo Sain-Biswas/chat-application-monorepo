@@ -1,28 +1,37 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-
-  "extends": "../typescript-config/tsconfig.base.json",
-
   "compilerOptions": {
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "noEmit": false,
     "allowImportingTsExtensions": null,
-
-    "typeRoots": ["./node_modules/@types"],
-    // "types": ["bun"],
-
-    "outDir": "dist",
+    "baseUrl": ".",
     "declaration": true,
     "declarationMap": true,
-
-    "rootDir": "src",
-    "baseUrl": ".",
+    "isolatedModules": true,
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "noEmit": false,
+    // "types": ["bun"],
+    "outDir": "dist",
     "paths": {
-      "@/api/*": ["../../apps/api/src/*"]
-    }
+      "@/api/*": [
+        "../../apps/api/src/*"
+      ]
+    },
+    "rootDir": "src",
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
+  "extends": "../typescript-config/tsconfig.base.json",
+  "include": [
+    "src"
+  ],
   "watchOptions": {
-    "excludeDirectories": ["**/node_modules", "**/packages/web"]
-  },
-  "include": ["src"]
+    "excludeDirectories": [
+      "**/node_modules",
+      "**/packages/web"
+    ]
+  }
 }

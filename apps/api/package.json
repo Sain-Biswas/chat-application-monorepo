@@ -1,11 +1,8 @@
 {
-  "name": "@zaptalk/api",
-  "scripts": {
-    "dev": "bun run --hot src/index.ts",
-    "start": "bun run src/index.ts",
-    "check-types": "tsc --noEmit",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+  "bun": {
+    "exclude": [
+      "node_modules"
+    ]
   },
   "dependencies": {
     "@hono/zod-openapi": "^0.19.8",
@@ -23,15 +20,19 @@
     "@zaptalk/eslint-config": "workspace:^",
     "drizzle-kit": "^0.31.1"
   },
+  "exports": {
+    "./auth": "./src/lib/auth.ts",
+    "./client": "./src/types/hono-client.ts"
+  },
+  "name": "@zaptalk/api",
   "peerDependencies": {
     "typescript": "^5.8.3"
   },
-  "bun": {
-    "exclude": [
-      "node_modules"
-    ]
-  },
-  "exports": {
-    "./types/*": "./src/types/*"
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "dev": "bun run --hot src/index.ts",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "start": "bun run src/index.ts"
   }
 }

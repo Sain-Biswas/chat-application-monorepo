@@ -5,7 +5,7 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import type { TAuthSchema } from "@zaptalk/api/types/better-auth.ts";
+import type { TAuthSchema } from "@zaptalk/api-client/index.js";
 
 function RootComponent() {
   return (
@@ -13,8 +13,7 @@ function RootComponent() {
       <div className="flex gap-2 p-2">
         <Link to="/" className="[&.active]:font-bold">
           Home
-        </Link>
-        {" "}
+        </Link>{" "}
         <Link to="/about" className="[&.active]:font-bold">
           About
         </Link>
