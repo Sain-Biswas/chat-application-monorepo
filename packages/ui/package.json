@@ -1,15 +1,4 @@
 {
-  "name": "@zaptalk/ui",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
-  },
-  "exports": {
-    "./*": "./src/*"
-  },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-beta.0",
     "@radix-ui/react-slot": "^1.2.3",
@@ -24,5 +13,16 @@
     "@types/react-dom": "^19.1.6",
     "@zaptalk/eslint-config": "workspace:^",
     "typescript": "~5.8.3"
-  }
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "name": "@zaptalk/ui",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }

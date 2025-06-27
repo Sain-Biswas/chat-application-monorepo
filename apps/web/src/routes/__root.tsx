@@ -5,17 +5,44 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import type { TAuthSchema } from "@zaptalk/api-client/index.js";
+import type { TAuthSchema } from "../lib/auth";
 
 function RootComponent() {
   return (
     <>
-      <div className="flex gap-2 p-2">
-        <Link to="/" className="[&.active]:font-bold">
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+        }}
+      >
+        <Link
+          to="/"
+          className="[&.active]:font-bold"
+          style={{ display: "inline-block" }}
+        >
           Home
-        </Link>{" "}
-        <Link to="/about" className="[&.active]:font-bold">
+        </Link>
+        <Link
+          to="/about"
+          className="[&.active]:font-bold"
+          style={{ display: "inline-block" }}
+        >
           About
+        </Link>
+        <Link
+          to="/login"
+          className="[&.active]:font-bold"
+          style={{ display: "inline-block" }}
+        >
+          Login
+        </Link>
+        <Link
+          to="/test"
+          className="[&.active]:font-bold"
+          style={{ display: "inline-block" }}
+        >
+          Test
         </Link>
       </div>
       <hr />

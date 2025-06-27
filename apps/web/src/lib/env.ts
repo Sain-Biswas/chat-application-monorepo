@@ -5,14 +5,13 @@ const environmentVariableSchema = z.object({
   SERVER_URL: z.url(),
 });
 
-const environmentVariable = environmentVariableSchema.safeParse(process.env);
+const environmentVariable = environmentVariableSchema.safeParse(
+  import.meta.env,
+);
 
-if (!environmentVariable.success) {
+if (!environmentVariable.success)
   // eslint-disable-next-line no-console
   console.error(environmentVariable.error);
-  // eslint-disable-next-line unicorn/no-process-exit
-  process.exit(1);
-}
 
 const env = environmentVariable.data;
 

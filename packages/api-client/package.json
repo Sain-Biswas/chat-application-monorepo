@@ -1,15 +1,4 @@
 {
-  "name": "@zaptalk/api-client",
-  "module": "index.ts",
-  "type": "module",
-  "main": "./dist/index.js",
-  "scripts": {
-    "dev": "tsc --watch",
-    "build": "rm -rf dist && tsc",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix",
-    "check-types": "tsc --noEmit"
-  },
   "dependencies": {
     "@zaptalk/api": "workspace:^",
     "hono": "^4.8.0"
@@ -18,10 +7,22 @@
     "@types/bun": "^1.2.16",
     "@zaptalk/eslint-config": "workspace:^"
   },
+  "exports": {
+    "./*": "./dist/*"
+  },
+  "main": "./dist/index.js",
+  "module": "index.ts",
+  "name": "@zaptalk/api-client",
   "peerDependencies": {
     "typescript": "^5.8.3"
   },
-  "exports": {
-    "./*": "./dist/*"
-  }
+  "private": true,
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "tsc --watch",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix"
+  },
+  "type": "module"
 }

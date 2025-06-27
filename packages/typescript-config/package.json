@@ -1,11 +1,12 @@
 {
-  "name": "@zaptalk/typescript-config",
-  "module": "index.ts",
-  "type": "module",
   "devDependencies": {
     "@types/bun": "^1.2.16"
   },
+  "module": "index.ts",
+  "name": "@zaptalk/typescript-config",
   "peerDependencies": {
     "typescript": "^5.8.3"
-  }
+  },
+  "private": true,
+  "type": "module"
 }
