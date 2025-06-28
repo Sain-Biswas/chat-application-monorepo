@@ -1,4 +1,4 @@
-import Button from "@zaptalk/ui/components/button.js";
+import Button from "@zaptalk/ui/components/ui/button.js";
 import MoonIcon from "@zaptalk/ui/icons/moon-icon.tsx";
 import SunIcon from "@zaptalk/ui/icons/sun-icon.tsx";
 import { useTheme } from "../hooks/use-theme";

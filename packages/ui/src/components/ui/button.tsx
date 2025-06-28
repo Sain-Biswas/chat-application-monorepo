@@ -1,8 +1,8 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import type { TMaterialIcon } from "../icons/types";
-import { cn } from "../lib/cn";
+import type { TMaterialIcon } from "../../icons/types";
+import { cn } from "../../lib/cn";
 
 const buttonVariants = cva("button-base", {
   variants: {

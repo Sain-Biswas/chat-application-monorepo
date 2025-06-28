@@ -1,0 +1,60 @@
+@use "../../_utils/index" as u;
+
+.check-box {
+  box-sizing: border-box;
+  display: flex;
+  width: u.rem(18);
+  height: u.rem(18);
+  align-items: center;
+  justify-content: center;
+  border-radius: u.rem(4);
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: u.rem(40);
+    height: u.rem(40);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 0;
+    border-radius: var(--radius-rounded);
+  }
+
+  &::before:where(&:hover) {
+    background-color: rgba(var(--color-on-surface), 0.08);
+  }
+
+  &[data-unchecked] {
+    border: u.rem(2) solid rgb(var(--color-on-surface));
+    background-color: transparent;
+  }
+
+  &[data-checked] {
+    background-color: rgb(var(--color-primary));
+  }
+
+  &:focus-visible {
+    outline: u.rem(3) solid rgb(var(--color-primary));
+    outline-offset: u.rem(2);
+  }
+
+  &__indicator {
+    display: flex;
+    color: rgb(var(--color-on-primary));
+
+    &[data-unchecked] {
+      display: none;
+    }
+  }
+
+  &__icon {
+    width: u.rem(18);
+    height: u.rem(18);
+  }
+}
