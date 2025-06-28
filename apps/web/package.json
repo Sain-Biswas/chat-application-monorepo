@@ -30,7 +30,7 @@
   "scripts": {
     "build": "tsc -b && vite build",
     "check-types": "tsc --noEmit",
-    "dev": "vite",
+    "dev": "vite --host",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "preview": "vite preview"

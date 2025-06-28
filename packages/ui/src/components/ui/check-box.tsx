@@ -30,11 +30,13 @@ export default function CheckBox({
   return (
     <Root className={cn(checkBoxVariant({ variant, className }))} {...props}>
       <Indicator className="check-box__indicator">
-        {isDeterminate ? (
-          <MinusIcon className="check-box__icon" />
-        ) : (
-          <CheckIcon className="check-box__icon" />
-        )}
+        {isDeterminate
+          ? (
+              <MinusIcon className="check-box__icon" />
+            )
+          : (
+              <CheckIcon className="check-box__icon" />
+            )}
       </Indicator>
     </Root>
   );
