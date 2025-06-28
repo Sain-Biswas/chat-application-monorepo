@@ -44,6 +44,11 @@ function TestPage() {
       >
         <p>Check Box</p>
         <CheckBox />
+        <CheckBox variant="error" />
+        <CheckBox disabled defaultChecked />
+        <CheckBox isDeterminate />
+        <CheckBox isDeterminate variant="error" />
+        <CheckBox isDeterminate disabled defaultChecked />
       </div>
     </main>
   );

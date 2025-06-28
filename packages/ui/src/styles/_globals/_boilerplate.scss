@@ -17,15 +17,6 @@ img {
 }
 
 .svg {
-  &:hover .svg__outlined {
-    display: none;
-  }
-
-  &__filled {
-    display: none;
-  }
-
-  &:hover .svg__filled {
-    display: inline-block;
-  }
+  color: currentColor;
+  fill: currentColor;
 }

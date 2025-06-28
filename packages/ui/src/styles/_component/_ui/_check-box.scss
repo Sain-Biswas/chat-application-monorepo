@@ -3,14 +3,14 @@
 .check-box {
   box-sizing: border-box;
   display: flex;
-  width: u.rem(18);
-  height: u.rem(18);
+  width: u.rem(20);
+  height: u.rem(20);
   align-items: center;
   justify-content: center;
   border-radius: u.rem(4);
   outline: 0;
   padding: 0;
-  margin: 0;
+  margin: u.rem(5);
   border: none;
   position: relative;
 
@@ -22,39 +22,100 @@
     top: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
-    z-index: 0;
+    z-index: -10;
     border-radius: var(--radius-rounded);
   }
 
-  &::before:where(&:hover) {
-    background-color: rgba(var(--color-on-surface), 0.08);
-  }
-
-  &[data-unchecked] {
-    border: u.rem(2) solid rgb(var(--color-on-surface));
-    background-color: transparent;
-  }
-
-  &[data-checked] {
-    background-color: rgb(var(--color-primary));
-  }
-
-  &:focus-visible {
-    outline: u.rem(3) solid rgb(var(--color-primary));
-    outline-offset: u.rem(2);
-  }
-
-  &__indicator {
-    display: flex;
-    color: rgb(var(--color-on-primary));
+  &__default {
+    &:hover::before {
+      background-color: rgba(var(--color-on-surface), 0.08);
+    }
 
     &[data-unchecked] {
-      display: none;
+      border: u.rem(2) solid rgb(var(--color-on-surface));
+      background-color: transparent;
+    }
+
+    &[data-checked] {
+      background-color: rgb(var(--color-primary));
+      color: rgb(var(--color-on-primary));
+    }
+
+    &:focus-visible::before {
+      outline: u.rem(3) solid rgb(var(--color-secondary));
+      outline-offset: u.rem(2);
+      background-color: rgba(var(--color-on-surface), 0.08);
+    }
+
+    &__indicator {
+      display: flex;
+      color: rgb(var(--color-on-error));
+      justify-content: center;
+      align-items: center;
+
+      &[data-unchecked] {
+        display: none;
+      }
+    }
+  }
+
+  &__error {
+    &:hover::before {
+      background-color: rgb(var(--color-error-container));
+    }
+
+    &[data-unchecked] {
+      border: u.rem(2) solid rgb(var(--color-error));
+      background-color: transparent;
+    }
+
+    &[data-checked] {
+      background-color: rgb(var(--color-error));
+      color: rgb(var(--color-on-error));
+    }
+
+    &:focus-visible::before {
+      outline: u.rem(3) solid rgb(var(--color-error));
+      outline-offset: u.rem(2);
+      background-color: rgb(var(--color-error-container));
+    }
+
+    &__indicator {
+      display: flex;
+      color: rgb(var(--color-on-primary));
+
+      &[data-unchecked] {
+        display: none;
+      }
+    }
+  }
+
+  &:disabled {
+    &:hover::before {
+      background-color: transparent;
+    }
+    &[data-unchecked] {
+      border: u.rem(2) solid rgba(var(--color-on-surface), 0.38);
+      background-color: transparent;
+    }
+
+    &[data-checked] {
+      background-color: rgba(var(--color-on-surface), 0.38);
+      color: rgb(var(--color-surface));
+    }
+
+    &__indicator {
+      display: flex;
+      color: rgb(var(--color-surface));
+
+      &[data-unchecked] {
+        display: none;
+      }
     }
   }
 
   &__icon {
-    width: u.rem(18);
-    height: u.rem(18);
+    width: u.rem(20);
+    height: u.rem(20);
   }
 }
