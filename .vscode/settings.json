@@ -1,7 +1,10 @@
 {
-  // Use codebase typescript version
-  "typescript.tsdk": "node_modules/typescript/lib",
-
+  "cSpell.words": [
+    "eslintcache",
+    "TBASE",
+    "xtra",
+    "zaptalk"
+  ],
   // On Save Code Actions
   "editor.codeActionsOnSave": {
     "source.addMissingImports.ts": "always",
@@ -12,7 +15,9 @@
     "source.removeUnusedImports": "always",
     "source.sortImports": "always"
   },
-
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
   // React Router
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
@@ -20,13 +25,6 @@
   "search.exclude": {
     "**/routeTree.gen.ts": true
   },
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "cSpell.words": [
-    "eslintcache",
-    "TBASE",
-    "xtra",
-    "zaptalk"
-  ]
+  // Use codebase typescript version
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

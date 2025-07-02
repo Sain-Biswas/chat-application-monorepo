@@ -26,3 +26,16 @@ export function FilterChip({ className, isElevated = false, text = "", Icon, ...
     </Root>
   );
 }
+
+export function SuggestionChip({ className, isElevated = false, text = "", Icon, ...props }: ComponentProps<"button"> & {
+  isElevated?: boolean;
+  text?: string;
+  Icon?: TMaterialIcon;
+}) {
+  return (
+    <button className={cn("suggestion-chip", isElevated ? "suggestion-chip__elevated" : "", className)} {...props}>
+      {Icon && <Icon className="suggestion-chip__icon" />}
+      <p className="suggestion-chip__text">{text}</p>
+    </button>
+  );
+}

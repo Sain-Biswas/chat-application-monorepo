@@ -1,8 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Card } from "@zaptalk/ui/components/ui/card.tsx";
-import CheckBox from "@zaptalk/ui/components/ui/check-box.tsx";
-import { AssistChip, FilterChip } from "@zaptalk/ui/components/ui/chips.tsx";
-import SunIcon from "@zaptalk/ui/icons/sun-icon.tsx";
+import { SuggestionChip } from "@zaptalk/ui/components/ui/chips.tsx";
+import SunIcon from "@zaptalk/ui/icons/sun-icon.js";
 import { ModeToggle } from "../components/mode-toggle";
 
 function TestPage() {
@@ -40,60 +39,20 @@ function TestPage() {
           padding: 20,
           display: "flex",
           flexWrap: "wrap",
-          alignItems: "center",
           gap: 20,
         }}
       >
-        <p>Check Box</p>
-        <CheckBox />
-        <CheckBox variant="error" />
-        <CheckBox disabled defaultChecked />
-        <CheckBox isDeterminate />
-        <CheckBox isDeterminate variant="error" />
-        <CheckBox isDeterminate disabled defaultChecked />
+        <SuggestionChip text="Suggestion Chip" />
+        <SuggestionChip text="Suggestion Chip" isElevated />
+        <SuggestionChip text="Suggestion Chip" Icon={SunIcon} />
+        <SuggestionChip text="Suggestion Chip" isElevated Icon={SunIcon} />
+        <p>disabled</p>
+        <SuggestionChip text="Suggestion Chip" disabled />
+        <SuggestionChip text="Suggestion Chip" isElevated disabled />
+        <SuggestionChip text="Suggestion Chip" disabled Icon={SunIcon} />
+        <SuggestionChip text="Suggestion Chip" isElevated disabled Icon={SunIcon} />
       </div>
 
-      <div
-        style={{
-          padding: 20,
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          gap: 20,
-        }}
-      >
-        <p>Assist Chips</p>
-        <AssistChip text="Sun Icon" Icon={SunIcon} />
-        <AssistChip text="No Icon" />
-        <AssistChip text="Sun Icon" Icon={SunIcon} isElevated />
-        <AssistChip text="No Icon" isElevated />
-        <p>Disabled</p>
-        <AssistChip text="Sun Icon" Icon={SunIcon} disabled />
-        <AssistChip text="No Icon" disabled />
-        <AssistChip text="Sun Icon" Icon={SunIcon} isElevated disabled />
-        <AssistChip text="No Icon" isElevated disabled />
-      </div>
-
-      <div
-        style={{
-          padding: 20,
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          gap: 20,
-        }}
-      >
-        <p>Filter Chips</p>
-        <FilterChip text="Sample Chip" />
-        <FilterChip text="Sample Chip" Icon={SunIcon} />
-        <FilterChip text="Sample Chip" isElevated />
-        <FilterChip text="Sample Chip" Icon={SunIcon} isElevated />
-        <p>Disabled</p>
-        <FilterChip text="Sample Chip" disabled />
-        <FilterChip text="Sample Chip" Icon={SunIcon} disabled defaultChecked />
-        <FilterChip text="Sample Chip" isElevated disabled />
-        <FilterChip text="Sample Chip" Icon={SunIcon} isElevated disabled />
-      </div>
     </main>
   );
 }
