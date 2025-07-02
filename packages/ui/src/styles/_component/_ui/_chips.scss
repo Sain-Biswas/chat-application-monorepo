@@ -11,7 +11,7 @@
     background-color: transparent;
 
     &__elevated {
-        box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+        box-shadow: var(--elevation-level-1);
         background-color: rgb(var(--color-surface-container-low));
     }
 
@@ -38,7 +38,7 @@
         }
 
         cursor: not-allowed;
-        box-shadow: none;
+        box-shadow: var(--elevation-level-0);
 
         .assist-button__icon,
         .assist-button__text {
@@ -50,7 +50,7 @@
         background-color: rgba(var(--color-on-surface), 0.08);
 
         &.assist-button__elevated {
-            box-shadow: 0 4px 8px 0 rgba(var(--color-shadow), 1);
+            box-shadow: var(--elevation-level-2);
         }
     }
 
@@ -75,7 +75,7 @@
 
 
     &__elevated {
-        box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+        box-shadow: var(--elevation-level-1);
         outline: none;
         background-color: rgb(var(--color-surface-container-low));
     }
@@ -133,7 +133,7 @@
 
 
     &:disabled {
-        box-shadow: none;
+        box-shadow: var(--elevation-level-0);
 
 
         &[data-unchecked] {
@@ -149,7 +149,7 @@
         }
 
         &.filter-chip__elevated {
-            box-shadow: none;
+            box-shadow: var(--elevation-level-0);
             background-color: rgba(var(--color-on-surface), 0.12);
         }
 
@@ -175,7 +175,7 @@
 
     &:hover:not(:disabled) {
         &[data-checked] {
-            box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+            box-shadow: var(--elevation-level-1);
             background-color: rgba(var(--color-on-secondary-container), 0.08);
         }
 
@@ -184,7 +184,7 @@
         }
 
         &.filter-chip__elevated {
-            box-shadow: 0 4px 8px 0 rgba(var(--color-shadow), 1);
+            box-shadow: var(--elevation-level-2);
         }
     }
 
@@ -202,7 +202,7 @@
     outline: u.rem(1) solid rgb(var(--color-outline-variant));
 
     &__elevated {
-        box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+        box-shadow: var(--elevation-level-1);
         background-color: rgb(var(--color-surface-container-low));
     }
 
@@ -225,7 +225,7 @@
         outline: u.rem(1) solid rgba(var(--color-on-surface), 0.12);
 
         &.suggestion-chip__elevated {
-            box-shadow: none;
+            box-shadow: var(--elevation-level-0);
             background-color: rgba(var(--color-on-surface), 0.12);
         }
 
@@ -237,7 +237,7 @@
 
     &:hover:not(:disabled) {
         &.suggestion-chip__elevated {
-            box-shadow: 0 4px 8px 0 rgba(var(--color-shadow), 1);
+            box-shadow: var(--elevation-level-2);
             background-color: rgba(var(--color-on-surface-variant), 0.08);
         }
     }

@@ -183,7 +183,7 @@ $radius-square-xtra-large: 28;
   &__elevated {
     background-color: rgb(var(--color-surface-container-low));
     color: rgb(var(--color-primary));
-    box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+    box-shadow: var(--elevation-level-1);
     transition: 0.1s;
 
     & .button-base__icon {
@@ -193,7 +193,7 @@ $radius-square-xtra-large: 28;
     &:disabled {
       background-color: rgba(var(--color-on-surface), 0.1);
       color: rgb(var(--color-on-surface), 0.38);
-      box-shadow: none;
+      box-shadow: var(--elevation-level-0);
 
       & .button-base__icon {
         color: rgb(var(--color-on-surface), 0.38);
@@ -203,7 +203,7 @@ $radius-square-xtra-large: 28;
     &:hover:not(:disabled) {
       background-color: rgb(var(--color-primary), 0.08);
       color: rgb(var(--color-primary));
-      box-shadow: 0 4px 12px 0 rgba(var(--color-shadow), 1);
+      box-shadow: var(--elevation-level-2);
 
       & .button-base__icon {
         color: rgb(var(--color-primary));
@@ -213,7 +213,7 @@ $radius-square-xtra-large: 28;
     &:focus-visible:not(:disabled) {
       background-color: rgba(var(--color-primary), 0.1);
       color: rgb(var(--color-primary));
-      box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+      box-shadow: var(--elevation-level-1);
 
       outline: u.rem(3) solid rgb(var(--color-primary));
       outline-offset: u.rem(2);

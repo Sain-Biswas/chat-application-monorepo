@@ -9,7 +9,7 @@
   &__elevated {
     background-color: rgb(var(--color-surface-container-low));
     color: rgb(var(--color-primary));
-    box-shadow: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+    box-shadow: var(--elevation-level-1);
 
     &:disabled {
       opacity: 0.38;
@@ -17,7 +17,7 @@
     }
 
     &:hover:not(:disabled) {
-      box-shadow: 0 4px 12px 0 rgba(var(--color-shadow), 1);
+      box-shadow: var(--elevation-level-2);
       background-color: rgba(var(--color-on-surface), 0.08);
     }
 
@@ -28,31 +28,23 @@
     }
   }
 
-  &__filled {
-  }
+  &__filled {}
 
-  &__outlined {
-  }
+  &__outlined {}
 
-  &__content {
-  }
+  &__content {}
 
   &__header {
-    &__title {
-    }
+    &__title {}
 
-    &__subtitle {
-    }
+    &__subtitle {}
 
-    &__description {
-    }
+    &__description {}
   }
 
   &__content {
-    img {
-    }
+    img {}
   }
 
-  &__footer {
-  }
+  &__footer {}
 }

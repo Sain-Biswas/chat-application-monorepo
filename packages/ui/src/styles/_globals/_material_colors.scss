@@ -54,6 +54,11 @@
   --color-custom-color-on-color-container: 32, 72, 118;
 
   --radius-rounded: 99999999999999px;
+
+  --elevation-level-0: none;
+  --elevation-level-1: 0 1px 2px 0 rgba(var(--color-shadow), 1);
+  --elevation-level-2: 0 3px 6px 0 rgba(var(--color-shadow), 1);
+
 }
 
 .dark {
