@@ -1,7 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Card } from "@zaptalk/ui/components/ui/card.tsx";
 import CheckBox from "@zaptalk/ui/components/ui/check-box.tsx";
-import { AssistChip } from "@zaptalk/ui/components/ui/chips.tsx";
+import { AssistChip, FilterChip } from "@zaptalk/ui/components/ui/chips.tsx";
 import SunIcon from "@zaptalk/ui/icons/sun-icon.tsx";
 import { ModeToggle } from "../components/mode-toggle";
 
@@ -62,7 +62,7 @@ function TestPage() {
           gap: 20,
         }}
       >
-        <p>Chips</p>
+        <p>Assist Chips</p>
         <AssistChip text="Sun Icon" Icon={SunIcon} />
         <AssistChip text="No Icon" />
         <AssistChip text="Sun Icon" Icon={SunIcon} isElevated />
@@ -72,6 +72,27 @@ function TestPage() {
         <AssistChip text="No Icon" disabled />
         <AssistChip text="Sun Icon" Icon={SunIcon} isElevated disabled />
         <AssistChip text="No Icon" isElevated disabled />
+      </div>
+
+      <div
+        style={{
+          padding: 20,
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: 20,
+        }}
+      >
+        <p>Filter Chips</p>
+        <FilterChip text="Sample Chip" />
+        <FilterChip text="Sample Chip" Icon={SunIcon} />
+        <FilterChip text="Sample Chip" isElevated />
+        <FilterChip text="Sample Chip" Icon={SunIcon} isElevated />
+        <p>Disabled</p>
+        <FilterChip text="Sample Chip" disabled />
+        <FilterChip text="Sample Chip" Icon={SunIcon} disabled defaultChecked />
+        <FilterChip text="Sample Chip" isElevated disabled />
+        <FilterChip text="Sample Chip" Icon={SunIcon} isElevated disabled />
       </div>
     </main>
   );

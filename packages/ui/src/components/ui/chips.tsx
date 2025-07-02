@@ -15,13 +15,14 @@ export function AssistChip({ className, Icon, text, isElevated = false, ...props
 
 const { Root, Indicator } = Checkbox;
 
-export function FilterChip({ className, isElevated = false, ...props }: ComponentProps<typeof Root> & { isElevated?: boolean }) {
+export function FilterChip({ className, isElevated = false, text = "", Icon, ...props }: ComponentProps<typeof Root> & { isElevated?: boolean; text?: string; Icon?: TMaterialIcon }) {
   return (
     <Root className={cn("filter-chip", isElevated ? "filter-chip__elevated" : "", className)} {...props}>
-      <Indicator className="">
-        <CheckIcon className="filter-chip__icon__start" />
+      <Indicator className="filter-chip__indicator">
+        <CheckIcon className="filter-chip__icon filter-chip__icon__start" />
       </Indicator>
-      <p className="filter-chip">{}</p>
+      <p className="filter-chip__text">{text}</p>
+      {Icon && <Icon className="filter-chip__icon filter-chip__icon__end" />}
     </Root>
   );
 }
