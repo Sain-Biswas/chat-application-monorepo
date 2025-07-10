@@ -5,20 +5,20 @@
     ]
   },
   "dependencies": {
-    "@hono/zod-openapi": "^0.19.8",
+    "@hono/zod-openapi": "^0.19.9",
     "@neondatabase/serverless": "^1.0.1",
-    "@scalar/hono-api-reference": "^0.9.5",
-    "better-auth": "^1.2.9",
+    "@scalar/hono-api-reference": "^0.9.9",
+    "better-auth": "^1.2.12",
     "drizzle-orm": "^0.44.2",
-    "hono": "^4.8.0",
-    "nodemailer": "^7.0.3",
-    "zod": "^3.25.67"
+    "hono": "^4.8.4",
+    "nodemailer": "^7.0.5",
+    "zod": "^4.0.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.16",
+    "@types/bun": "^1.2.18",
     "@types/nodemailer": "^6.4.17",
     "@zaptalk/eslint-config": "workspace:^",
-    "drizzle-kit": "^0.31.1"
+    "drizzle-kit": "^0.31.4"
   },
   "exports": {
     "./auth": "./src/lib/auth.ts",

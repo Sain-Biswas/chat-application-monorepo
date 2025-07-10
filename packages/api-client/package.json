@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "@zaptalk/api": "workspace:^",
-    "hono": "^4.8.0"
+    "hono": "^4.8.4"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.16",
+    "@types/bun": "^1.2.18",
     "@zaptalk/eslint-config": "workspace:^"
   },
   "exports": {

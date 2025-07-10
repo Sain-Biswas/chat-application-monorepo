@@ -1,29 +1,29 @@
 {
   "dependencies": {
-    "@tanstack/react-query": "^5.80.10",
-    "@tanstack/react-query-devtools": "^5.80.10",
-    "@tanstack/react-router": "^1.121.27",
-    "@tanstack/react-router-devtools": "^1.121.27",
+    "@tanstack/react-query": "^5.82.0",
+    "@tanstack/react-query-devtools": "^5.82.0",
+    "@tanstack/react-router": "^1.125.6",
+    "@tanstack/react-router-devtools": "^1.125.6",
     "@zaptalk/api-client": "workspace:^",
-    "better-auth": "^1.2.9",
+    "better-auth": "^1.2.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "zod": "^3.25.67"
+    "zod": "^4.0.2"
   },
   "devDependencies": {
-    "@tanstack/router-plugin": "^1.121.27",
-    "@types/node": "^24.0.3",
+    "@tanstack/router-plugin": "^1.125.6",
+    "@types/node": "^24.0.12",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.5.2",
+    "@vitejs/plugin-react": "^4.6.0",
     "@zaptalk/eslint-config": "workspace:^",
     "@zaptalk/ui": "workspace:^",
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
-    "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.12",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "sass": "^1.89.2",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^7.0.3"
   },
   "name": "@zaptalk/web",
   "private": true,
