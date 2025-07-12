@@ -1,20 +1,23 @@
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
 
 import * as TanStackQueryProvider from "./integrations/tanstack-query/root-provider.tsx";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
-import "./styles.css";
+import { ThemeProvider } from "./integrations/app-mode/root-provider.tsx";
 import reportWebVitals from "./reportWebVitals.ts";
+import "./styles.css";
 
 // Create a new router instance
 const router = createRouter({
   routeTree,
   context: {
     ...TanStackQueryProvider.getContext(),
+    // eslint-disable-next-line unicorn/no-null
+    authSession: null,
   },
   defaultPreload: "intent",
   scrollRestoration: true,
@@ -35,9 +38,11 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <TanStackQueryProvider.Provider>
-        <RouterProvider router={router} />
-      </TanStackQueryProvider.Provider>
+      <ThemeProvider defaultTheme="system" storageKey="theme-ui">
+        <TanStackQueryProvider.Provider>
+          <RouterProvider router={router} />
+        </TanStackQueryProvider.Provider>
+      </ThemeProvider>
     </StrictMode>,
   );
 }
