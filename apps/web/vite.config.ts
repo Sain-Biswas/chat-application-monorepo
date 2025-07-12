@@ -1,27 +1,24 @@
-/* eslint-disable unicorn/prefer-module */
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import react from "@vitejs/plugin-react";
-import path from "node:path";
-import { defineConfig } from "vite";
+import tailwindcss from '@tailwindcss/vite'
+import viteReact from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
-// https://vite.dev/config/
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import { resolve } from 'node:path'
+
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    TanStackRouterVite({
-      target: "react",
-      autoCodeSplitting: true,
-    }),
-    react({
+    tanstackRouter({ autoCodeSplitting: true, target:"react" }),
+    viteReact({
       babel: {
         plugins: [["babel-plugin-react-compiler", { target: "19" }]],
       },
     }),
+    tailwindcss(),
   ],
   resolve: {
     alias: {
-      "@/web": path.resolve(__dirname, "./src"),
-      "#/web": path.resolve(__dirname, "./public"),
-      "@/api": path.resolve(__dirname, "../api/src"),
+      '@/web': resolve(__dirname, './src'),
     },
   },
   server: {
@@ -33,4 +30,4 @@ export default defineConfig({
     outDir: "../api/public",
     emptyOutDir: true,
   },
-});
+})

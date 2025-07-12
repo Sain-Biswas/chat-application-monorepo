@@ -27,7 +27,8 @@ export default function createOpenAPIApp() {
                 "Content-Type": mimeType,
               },
             });
-          } catch {
+          }
+          catch {
             // eslint-disable-next-line unicorn/no-null
             return null;
           }
@@ -49,7 +50,8 @@ export default function createOpenAPIApp() {
             "Content-Type": "text/html",
           },
         });
-      } catch {
+      }
+      catch {
         return c.notFound();
       }
     })

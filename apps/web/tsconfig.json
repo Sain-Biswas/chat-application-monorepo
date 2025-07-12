@@ -1,18 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-
-  "files": [],
-
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/web/*": ["./src/*"],
-      "#/web/*": ["./public/*"]
-    }
-  }
+      "@/web/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "vite/client"
+    ],
+  },
+  "extends": "../../packages/typescript-config/tsconfig.react.json",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
