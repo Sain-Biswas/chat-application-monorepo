@@ -6,3 +6,5 @@ public/
 
 # Better Auth
 auth-schema.ts
+
+.drizzle/
