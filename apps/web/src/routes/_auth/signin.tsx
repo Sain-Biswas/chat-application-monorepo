@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from "@/web/components/ui/form";
 import { Input } from "@/web/components/ui/input";
+import { signIn } from "@/web/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconBrandGoogleFilled } from "@tabler/icons-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -19,6 +20,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const signinSchema = z.object({
@@ -38,10 +40,30 @@ function SignInRoute() {
   });
 
   const [isVisible, setVisible] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-  function onSubmit(values: z.infer<typeof signinSchema>) {
-    // eslint-disable-next-line no-console
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof signinSchema>) {
+    setLoading(true);
+
+    const { data, error } = await signIn.email({
+      ...values,
+    });
+
+    if (error) toast.error(error.message);
+    else toast.success(`${data.user.name} signed in successfully.`);
+
+    setLoading(false);
+  }
+
+  async function socialSignin() {
+    setLoading(true);
+
+    const { error } = await signIn.social({ provider: "google" });
+
+    if (error) toast.error(error.message);
+    else toast.success(`User registered successfully.`);
+
+    setLoading(false);
   }
 
   return (
@@ -107,29 +129,31 @@ function SignInRoute() {
                     aria-pressed={isVisible}
                     aria-controls="password"
                   >
-                    {isVisible ? (
-                      <EyeOffIcon size={16} aria-hidden="true" />
-                    ) : (
-                      <EyeIcon size={16} aria-hidden="true" />
-                    )}
+                    {isVisible
+                      ? (
+                          <EyeOffIcon size={16} aria-hidden="true" />
+                        )
+                      : (
+                          <EyeIcon size={16} aria-hidden="true" />
+                        )}
                   </Button>
                 </div>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Sign in</Button>
+          <Button type="submit" disabled={isLoading}>Sign in</Button>
         </form>
       </Form>
       <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
         <span className="text-muted-foreground text-xs">Or</span>
       </div>
-      <Button>
+      <Button onClick={socialSignin} disabled={isLoading}>
         <IconBrandGoogleFilled />
         <p>Sign in using Google</p>
       </Button>
-      <div>
-        Don&apos;t have an account?{" "}
+      <div className="flex items-center justify-center">
+        <p>Don&apos;t have an account?</p>
         <Button variant="link">
           <Link to="/signup">signup</Link>
         </Button>

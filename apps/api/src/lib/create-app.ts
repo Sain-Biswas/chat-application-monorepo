@@ -4,7 +4,9 @@ import { serveStatic } from "hono/serve-static";
 import { getMimeType } from "hono/utils/mime";
 import { readFile } from "node:fs/promises";
 // eslint-disable-next-line unicorn/import-style
+import { cors } from "hono/cors";
 import { extname } from "node:path";
+import env from "../constant/env";
 import createOpenAPIRoute from "./create-router";
 
 const publicPath = "./public" as const;
@@ -55,8 +57,10 @@ export default function createOpenAPIApp() {
         return c.notFound();
       }
     })
-
     .basePath(BASE_PATH) as TOpenAPIHono;
+
+  if (env.NODE_ENV === "development")
+    app.use("*", cors());
 
   return app;
 }

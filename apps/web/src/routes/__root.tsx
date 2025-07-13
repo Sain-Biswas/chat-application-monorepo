@@ -4,11 +4,10 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import TanStackQueryLayout from "../integrations/tanstack-query/layout.tsx";
 
 import type { QueryClient } from "@tanstack/react-query";
-import type { TAuthSchema } from "../lib/auth.ts";
+import { Toaster } from "../components/ui/sonner.tsx";
 
 interface MyRouterContext {
   queryClient: QueryClient;
-  authSession: TAuthSchema | null;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -17,6 +16,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       <Outlet />
       <TanStackRouterDevtools />
       <TanStackQueryLayout />
+      <Toaster />
     </>
   ),
 });

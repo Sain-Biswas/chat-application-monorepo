@@ -16,8 +16,6 @@ const router = createRouter({
   routeTree,
   context: {
     ...TanStackQueryProvider.getContext(),
-    // eslint-disable-next-line unicorn/no-null
-    authSession: null,
   },
   defaultPreload: "intent",
   scrollRestoration: true,
@@ -40,7 +38,9 @@ if (rootElement && !rootElement.innerHTML) {
     <StrictMode>
       <ThemeProvider defaultTheme="system" storageKey="theme-ui">
         <TanStackQueryProvider.Provider>
-          <RouterProvider router={router} />
+          <RouterProvider
+            router={router}
+          />
         </TanStackQueryProvider.Provider>
       </ThemeProvider>
     </StrictMode>,
