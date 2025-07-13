@@ -1,12 +1,15 @@
+/* eslint-disable unicorn/no-null */
 import BASE_PATH from "@/api/constant/base-path";
 import type { TOpenAPIHono } from "@/api/types/hono-open-api";
 import { serveStatic } from "hono/serve-static";
 import { getMimeType } from "hono/utils/mime";
 import { readFile } from "node:fs/promises";
-// eslint-disable-next-line unicorn/import-style
+
 import { cors } from "hono/cors";
+// eslint-disable-next-line unicorn/import-style
 import { extname } from "node:path";
 import env from "../constant/env";
+import { auth } from "./auth";
 import createOpenAPIRoute from "./create-router";
 
 const publicPath = "./public" as const;
@@ -31,7 +34,6 @@ export default function createOpenAPIApp() {
             });
           }
           catch {
-            // eslint-disable-next-line unicorn/no-null
             return null;
           }
         },
@@ -56,6 +58,18 @@ export default function createOpenAPIApp() {
       catch {
         return c.notFound();
       }
+    }).use("*", async (c, next) => {
+      const session = await auth.api.getSession({ headers: c.req.raw.headers });
+
+      if (!session) {
+        c.set("user", null);
+        c.set("session", null);
+        return next();
+      }
+
+      c.set("user", session.user);
+      c.set("session", session.session);
+      return next();
     })
     .basePath(BASE_PATH) as TOpenAPIHono;
 
