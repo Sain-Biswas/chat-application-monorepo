@@ -1,4 +1,5 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { getSession } from "@/web/lib/auth";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import { GalleryVerticalEnd } from "lucide-react";
 
@@ -32,5 +33,13 @@ export function AuthenticationRouteLayout() {
 }
 
 export const Route = createFileRoute("/_auth")({
+  beforeLoad: async () => {
+    const { data, error } = await getSession();
+
+    if (data || !error)
+      throw redirect({
+        to: "/chats",
+      });
+  },
   component: AuthenticationRouteLayout,
 });
