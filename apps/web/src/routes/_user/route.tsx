@@ -1,5 +1,25 @@
+import { AppSidebar } from "@/web/components/sidebar/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/web/components/ui/sidebar";
 import { getSession } from "@/web/lib/auth";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
+
+function RouteComponent() {
+  return (
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "350px",
+        } as CSSProperties
+      }
+    >
+      <AppSidebar />
+      <SidebarInset>
+        <Outlet />
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
 
 export const Route = createFileRoute("/_user")({
   beforeLoad: async () => {
@@ -15,7 +35,3 @@ export const Route = createFileRoute("/_user")({
   },
   component: RouteComponent,
 });
-
-function RouteComponent() {
-  return <div>Hello "/_user"!</div>;
-}

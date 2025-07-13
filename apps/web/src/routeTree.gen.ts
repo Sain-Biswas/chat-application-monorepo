@@ -13,9 +13,12 @@ import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
+import { Route as UserSettingsRouteImport } from './routes/_user/settings'
 import { Route as UserChatsRouteImport } from './routes/_user/chats'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/_auth/signin'
+import { Route as UserFriendsIndexRouteImport } from './routes/_user/friends/index'
+import { Route as UserFriendsPendingRouteImport } from './routes/_user/friends/pending'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
@@ -35,6 +38,11 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UserSettingsRoute = UserSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const UserChatsRoute = UserChatsRouteImport.update({
   id: '/chats',
   path: '/chats',
@@ -50,20 +58,36 @@ const AuthSigninRoute = AuthSigninRouteImport.update({
   path: '/signin',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const UserFriendsIndexRoute = UserFriendsIndexRouteImport.update({
+  id: '/friends/',
+  path: '/friends/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserFriendsPendingRoute = UserFriendsPendingRouteImport.update({
+  id: '/friends/pending',
+  path: '/friends/pending',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
   '/chats': typeof UserChatsRoute
+  '/settings': typeof UserSettingsRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/friends/pending': typeof UserFriendsPendingRoute
+  '/friends': typeof UserFriendsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
   '/chats': typeof UserChatsRoute
+  '/settings': typeof UserSettingsRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/friends/pending': typeof UserFriendsPendingRoute
+  '/friends': typeof UserFriendsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -73,13 +97,32 @@ export interface FileRoutesById {
   '/_auth/signin': typeof AuthSigninRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/_user/chats': typeof UserChatsRoute
+  '/_user/settings': typeof UserSettingsRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/_user/friends/pending': typeof UserFriendsPendingRoute
+  '/_user/friends/': typeof UserFriendsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signin' | '/signup' | '/chats' | '/demo/tanstack-query'
+  fullPaths:
+    | '/'
+    | '/signin'
+    | '/signup'
+    | '/chats'
+    | '/settings'
+    | '/demo/tanstack-query'
+    | '/friends/pending'
+    | '/friends'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signin' | '/signup' | '/chats' | '/demo/tanstack-query'
+  to:
+    | '/'
+    | '/signin'
+    | '/signup'
+    | '/chats'
+    | '/settings'
+    | '/demo/tanstack-query'
+    | '/friends/pending'
+    | '/friends'
   id:
     | '__root__'
     | '/'
@@ -88,7 +131,10 @@ export interface FileRouteTypes {
     | '/_auth/signin'
     | '/_auth/signup'
     | '/_user/chats'
+    | '/_user/settings'
     | '/demo/tanstack-query'
+    | '/_user/friends/pending'
+    | '/_user/friends/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_user/settings': {
+      id: '/_user/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof UserSettingsRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
     '/_user/chats': {
       id: '/_user/chats'
       path: '/chats'
@@ -149,6 +202,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_user/friends/': {
+      id: '/_user/friends/'
+      path: '/friends'
+      fullPath: '/friends'
+      preLoaderRoute: typeof UserFriendsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/friends/pending': {
+      id: '/_user/friends/pending'
+      path: '/friends/pending'
+      fullPath: '/friends/pending'
+      preLoaderRoute: typeof UserFriendsPendingRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
   }
 }
 
@@ -168,10 +235,16 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 
 interface UserRouteRouteChildren {
   UserChatsRoute: typeof UserChatsRoute
+  UserSettingsRoute: typeof UserSettingsRoute
+  UserFriendsPendingRoute: typeof UserFriendsPendingRoute
+  UserFriendsIndexRoute: typeof UserFriendsIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserChatsRoute: UserChatsRoute,
+  UserSettingsRoute: UserSettingsRoute,
+  UserFriendsPendingRoute: UserFriendsPendingRoute,
+  UserFriendsIndexRoute: UserFriendsIndexRoute,
 }
 
 const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
