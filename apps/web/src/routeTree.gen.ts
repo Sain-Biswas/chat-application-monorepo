@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo.tanstack-query'
 import { Route as UserSettingsRouteImport } from './routes/_user/settings'
 import { Route as UserChatsRouteImport } from './routes/_user/chats'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
@@ -31,11 +30,6 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UserSettingsRoute = UserSettingsRouteImport.update({
@@ -75,7 +69,6 @@ export interface FileRoutesByFullPath {
   '/signup': typeof AuthSignupRoute
   '/chats': typeof UserChatsRoute
   '/settings': typeof UserSettingsRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/friends/pending': typeof UserFriendsPendingRoute
   '/friends': typeof UserFriendsIndexRoute
 }
@@ -85,7 +78,6 @@ export interface FileRoutesByTo {
   '/signup': typeof AuthSignupRoute
   '/chats': typeof UserChatsRoute
   '/settings': typeof UserSettingsRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/friends/pending': typeof UserFriendsPendingRoute
   '/friends': typeof UserFriendsIndexRoute
 }
@@ -98,7 +90,6 @@ export interface FileRoutesById {
   '/_auth/signup': typeof AuthSignupRoute
   '/_user/chats': typeof UserChatsRoute
   '/_user/settings': typeof UserSettingsRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/_user/friends/pending': typeof UserFriendsPendingRoute
   '/_user/friends/': typeof UserFriendsIndexRoute
 }
@@ -110,7 +101,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/chats'
     | '/settings'
-    | '/demo/tanstack-query'
     | '/friends/pending'
     | '/friends'
   fileRoutesByTo: FileRoutesByTo
@@ -120,7 +110,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/chats'
     | '/settings'
-    | '/demo/tanstack-query'
     | '/friends/pending'
     | '/friends'
   id:
@@ -132,7 +121,6 @@ export interface FileRouteTypes {
     | '/_auth/signup'
     | '/_user/chats'
     | '/_user/settings'
-    | '/demo/tanstack-query'
     | '/_user/friends/pending'
     | '/_user/friends/'
   fileRoutesById: FileRoutesById
@@ -141,7 +129,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   UserRouteRoute: typeof UserRouteRouteWithChildren
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,13 +152,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_user/settings': {
@@ -255,7 +235,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   UserRouteRoute: UserRouteRouteWithChildren,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
