@@ -31,7 +31,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   // IRL you should use the url/router.
   const loc = useLocation();
   const path = loc.pathname;
-  const activeItem = navMain.find((i) => i.url === path);
+  const activeItem = navMain.find((i) => path.startsWith(i.url));
   const { setOpen } = useSidebar();
 
   return (
@@ -79,7 +79,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                         onClick={() => {
                           setOpen(true);
                         }}
-                        isActive={activeItem?.title === item.title}
+                        isActive={activeItem?.url === item.url}
                         className="px-2.5 md:px-2"
                       >
                         <item.icon />

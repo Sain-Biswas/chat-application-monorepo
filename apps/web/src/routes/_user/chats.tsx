@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/web/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/web/components/ui/breadcrumb";
 import { Separator } from "@/web/components/ui/separator";
 import { SidebarTrigger } from "@/web/components/ui/sidebar";
 import { createFileRoute } from "@tanstack/react-router";
@@ -7,19 +7,19 @@ function RouteComponent() {
   return (
     <>
       <header className="bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4">
-        <SidebarTrigger className="-ml-1" />
+        <SidebarTrigger className="-ml-1 hidden md:block" />
         <Separator
           orientation="vertical"
-          className="mr-2 data-[orientation=vertical]:h-4"
+          className="mr-2 data-[orientation=vertical]:h-4 hidden md:block"
         />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem className="hidden md:block">
+            {/* <BreadcrumbItem className="hidden md:block">
               <BreadcrumbLink href="#">All Inboxes</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbSeparator className="hidden md:block" /> */}
             <BreadcrumbItem>
-              <BreadcrumbPage>Inbox</BreadcrumbPage>
+              <BreadcrumbPage>Conversations</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

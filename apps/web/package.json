@@ -20,6 +20,7 @@
     "@tanstack/react-query-devtools": "^5.66.5",
     "@tanstack/react-router": "^1.121.2",
     "@tanstack/react-router-devtools": "^1.121.2",
+    "@tanstack/react-table": "^8.21.3",
     "@tanstack/router-plugin": "^1.121.2",
     "@zaptalk/api-client": "workspace:^",
     "babel-plugin-react-compiler": "^19.1.0-rc.2",

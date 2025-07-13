@@ -118,7 +118,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-base font-medium">
+            <div className="text-foreground text-xl  font-semibold">
               Conversations
             </div>
             <Label className="flex items-center gap-2 text-sm">
@@ -159,7 +159,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-2xl  font-semibold">
+            <div className="text-foreground text-xl  font-semibold">
               Friends
             </div>
           </div>
@@ -195,7 +195,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-base font-medium">
+            <div className="text-foreground text-xl  font-semibold">
               Settings
             </div>
           </div>
