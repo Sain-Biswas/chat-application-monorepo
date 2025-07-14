@@ -9,6 +9,7 @@ import { cors } from "hono/cors";
 // eslint-disable-next-line unicorn/import-style
 import { extname } from "node:path";
 import env from "../constant/env";
+import HTTPStatusCodes from "../constant/http-status-codes";
 import { auth } from "./auth";
 import createOpenAPIRoute from "./create-router";
 
@@ -60,12 +61,22 @@ export default function createOpenAPIApp() {
       }
     }).use("*", async (c, next) => {
       const session = await auth.api.getSession({ headers: c.req.raw.headers });
+      const path = new URL(c.req.url).pathname;
 
-      if (!session) {
-        c.set("user", null);
-        c.set("session", null);
+      if (path.startsWith("/api/auth") || path.startsWith("/api/reference") || path.startsWith("/api/openapi"))
         return next();
-      }
+
+      if (!session)
+        return c.json({
+          success: false,
+          error: {
+            message: "Access only allowed for authenticated users.",
+            detail: "Please register or signin to our service to access this route.",
+            name: "UNAUTHORIZED",
+          },
+          code: "UNAUTHORIZED",
+          path,
+        }, HTTPStatusCodes.UNAUTHORIZED);
 
       c.set("user", session.user);
       c.set("session", session.session);

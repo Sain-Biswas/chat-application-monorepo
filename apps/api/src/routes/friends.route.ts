@@ -1,7 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 import HTTPStatusCodes from "../constant/http-status-codes";
-import HTTPStatusKeys from "../constant/http-status-keys";
 import databaseClient from "../database/index.database";
 import { friendRequestSchema } from "../database/schema/friend-request.schema";
 import { userSchema } from "../database/schema/users.schema";
@@ -53,7 +52,7 @@ const friendsRoute = createOpenAPIRoute().openapi(
                 detail: z.string(),
                 name: z.string(),
               }),
-              code: z["enum"](HTTPStatusKeys),
+              code: z.string(),
               path: z.string(),
             }),
 
@@ -61,6 +60,41 @@ const friendsRoute = createOpenAPIRoute().openapi(
 
         },
         description: "No user found with given email.",
+      },
+      [HTTPStatusCodes.UNAUTHORIZED]: {
+        content: {
+          "application/json": {
+            schema: z.object({
+              success: z["boolean"](),
+              error: z.object({
+                message: z.string(),
+                detail: z.string(),
+                name: z.string(),
+              }),
+              code: z.string(),
+              path: z.string(),
+            }),
+          },
+        },
+        description: "Unauthorized",
+      },
+      [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+        content: {
+          "application/json": {
+            schema: z.object({
+              success: z["boolean"](),
+              error: z.object({
+                message: z.string(),
+                detail: z.string(),
+                name: z.string(),
+              }),
+              code: z.string(),
+              timestamp: z.date(),
+              path: z.string(),
+            }),
+          },
+        },
+        description: "Some unexpected error occurred at the server side.",
       },
     },
   }),
