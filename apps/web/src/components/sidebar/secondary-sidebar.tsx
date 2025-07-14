@@ -1,4 +1,4 @@
-import { IconCircleCheckFilled, IconClockHour12Filled } from "@tabler/icons-react";
+import { IconCircleCheckFilled, IconClockHour12Filled, IconProgressHelp } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Label } from "../ui/label";
@@ -107,6 +107,12 @@ const friendsRoutes = [
     name: "Pending",
     icon: IconClockHour12Filled,
     description: "List of friend requests awaiting your attention.",
+  },
+  {
+    url: "/friends/status",
+    name: "Status",
+    icon: IconProgressHelp,
+    description: "Status of friend requests sent by you.",
   },
 ];
 
