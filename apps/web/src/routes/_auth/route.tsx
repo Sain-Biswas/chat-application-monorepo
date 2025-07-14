@@ -34,9 +34,9 @@ export function AuthenticationRouteLayout() {
 
 export const Route = createFileRoute("/_auth")({
   beforeLoad: async () => {
-    const { data, error } = await getSession();
+    const { data } = await getSession();
 
-    if (data || !error)
+    if (data)
       throw redirect({
         to: "/chats",
       });

@@ -14,7 +14,7 @@ const homeRoute = createOpenAPIRoute().openapi(
               .object({
                 message: z.string().openapi({ example: "Hello World!" }),
               })
-              .openapi("message"),
+              .openapi("Message__Success"),
           },
         },
         description: "Success Response",
