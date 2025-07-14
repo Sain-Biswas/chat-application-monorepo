@@ -1,5 +1,5 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import HTTPStatusCodes from "../constant/http-status-codes";
 import databaseClient from "../database/index.database";
 import { friendRequestSchema } from "../database/schema/friend-request.schema";
@@ -228,6 +228,190 @@ const friendsRoute = createOpenAPIRoute()
       return c.json({
         success: true,
         data: friends,
+      }, HTTPStatusCodes.OK);
+    },
+  )
+  .openapi(
+    createRoute({
+      path: "/pending",
+      method: "get",
+      description: "Pending request routes.",
+      responses: {
+        [HTTPStatusCodes.OK]: {
+          description: "Returns the list the friend requests sent to you.",
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                data: z.array(z.object({
+                  id: z.string(),
+                  createdAt: z.date(),
+                  status: z["enum"](["accepted", "pending", "rejected", "canceled"]),
+                  sentFrom: z.object({
+                    id: z.string(),
+                    email: z.string(),
+                    image: z.string().nullable(),
+                    name: z.string(),
+                  }),
+                })),
+              }),
+            },
+          },
+        },
+        [HTTPStatusCodes.UNAUTHORIZED]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }).openapi("Unauthorized__Response"),
+            },
+          },
+          description: "Unauthorized",
+        },
+        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                timestamp: z.date(),
+                path: z.string(),
+              }).openapi("Internal_Server_Error__Response"),
+            },
+          },
+          description: "Some unexpected error occurred at the server side.",
+        },
+      },
+    }),
+    async (c) => {
+      const user = c.get("user");
+
+      const data = await databaseClient.query.friendRequestSchema.findMany({
+        where: and(eq(friendRequestSchema.sentToId, user.id), eq(friendRequestSchema.status, "pending")),
+        columns: {
+          id: true,
+          status: true,
+          createdAt: true,
+        },
+        with: {
+          sentFrom: {
+            columns: {
+              id: true,
+              email: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      return c.json({
+        success: true,
+        data,
+      }, HTTPStatusCodes.OK);
+    },
+  )
+  .openapi(
+    createRoute({
+      path: "/status",
+      method: "get",
+      description: "Sent Friend Request Route",
+      responses: {
+        [HTTPStatusCodes.OK]: {
+          description: "",
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                data: z.array(z.object({
+                  id: z.string(),
+                  createdAt: z.date(),
+                  status: z["enum"](["accepted", "pending", "rejected", "canceled"]),
+                  sentFrom: z.object({
+                    id: z.string(),
+                    email: z.string(),
+                    image: z.string().nullable(),
+                    name: z.string(),
+                  }),
+                })),
+              }),
+            },
+          },
+        },
+        [HTTPStatusCodes.UNAUTHORIZED]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }).openapi("Unauthorized__Response"),
+            },
+          },
+          description: "Unauthorized",
+        },
+        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                timestamp: z.date(),
+                path: z.string(),
+              }).openapi("Internal_Server_Error__Response"),
+            },
+          },
+          description: "Some unexpected error occurred at the server side.",
+        },
+      },
+    }),
+    async (c) => {
+      const user = c.get("user");
+
+      const data = await databaseClient.query.friendRequestSchema.findMany({
+        where: and(eq(friendRequestSchema.sentFromId, user.id)),
+        columns: {
+          id: true,
+          status: true,
+          createdAt: true,
+        },
+        with: {
+          sentFrom: {
+            columns: {
+              id: true,
+              email: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      return c.json({
+        success: true,
+        data,
       }, HTTPStatusCodes.OK);
     },
   );
