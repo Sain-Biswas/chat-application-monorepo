@@ -1,5 +1,6 @@
 import createOpenAPIApp from "@/api/lib/create-app";
 import registerOpenAPIRoutes from "@/api/routes";
+import console from "node:console";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
 import env from "./constant/env";
@@ -14,15 +15,19 @@ configureScalarUI(app);
 
 const server = createServer();
 
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 io.on("connection", (socket) => {
   socket.on("join:room", (room) => {
-    socket.join(room);
+    console.log(`Got data as ${room}`);
   });
 
-  socket.on("friend:request:new", (data) => {
-    console.log(data);
+  socket.on("leave:room", (data) => {
+    console.log(`Got data as ${data}`);
   });
 });
 

@@ -5,6 +5,7 @@ import databaseClient from "../database/index.database";
 import { friendRequestSchema } from "../database/schema/friend-request.schema";
 import { friendsSchema } from "../database/schema/friends.schema";
 import { userSchema } from "../database/schema/users.schema";
+import { io } from "../index";
 import createOpenAPIRoute from "../lib/create-router";
 
 const friendsRoute = createOpenAPIRoute()
@@ -233,6 +234,8 @@ const friendsRoute = createOpenAPIRoute()
         ),
       );
 
+      io.to(body.friendID).emit("friends:delete", `${user.name} - (${user.email}) is no longer a friend.`, "All individual conversations are hereby lost and can't be accessed anymore.");
+
       return c.json({
         success: true,
         message: `${check.friend.name} - (${check.friend.email}) is no longer a friend.`,
@@ -362,6 +365,8 @@ const friendsRoute = createOpenAPIRoute()
         sentToId: friend.id,
         status: "pending",
       });
+
+      io.to(friend.id).emit("friend:request", `You got a new friend request from ${user.name}`, "You can see the request in friend->pending.");
 
       return c.json({
         success: true,

@@ -71,6 +71,7 @@ const homeRoute = createOpenAPIRoute()
           content: {
             "application/json": {
               schema: z.object({
+                success: z["boolean"](),
                 link: z.string(),
               }),
             },
@@ -114,6 +115,7 @@ const homeRoute = createOpenAPIRoute()
       },
     }),
     (c) => c.json({
+      success: true,
       link: `${env.SERVER_ADDRESS}:${env.PORT + 1}`,
     }, HTTPStatusCodes.OK),
   );
