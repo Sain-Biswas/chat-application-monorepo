@@ -1,5 +1,5 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { and, eq, or } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import HTTPStatusCodes from "../constant/http-status-codes";
 import databaseClient from "../database/index.database";
 import { friendRequestSchema } from "../database/schema/friend-request.schema";
@@ -10,8 +10,240 @@ import createOpenAPIRoute from "../lib/create-router";
 const friendsRoute = createOpenAPIRoute()
   .openapi(
     createRoute({
+      path: "/",
+      method: "get",
+      description: "Friend List Route",
+      responses: {
+        [HTTPStatusCodes.OK]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                data: z.array(z.object({
+                  id: z.string(),
+                  name: z.string(),
+                  email: z.string().email(),
+                  image: z.string().nullable(),
+                })),
+              }).openapi("Friend_List__Response"),
+            },
+          },
+          description: "Returns the list of friends of the current authenticated user.",
+        },
+        [HTTPStatusCodes.UNAUTHORIZED]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }).openapi("Unauthorized__Response"),
+            },
+          },
+          description: "Unauthorized",
+        },
+        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                timestamp: z.date(),
+                path: z.string(),
+              }).openapi("Internal_Server_Error__Response"),
+            },
+          },
+          description: "Some unexpected error occurred at the server side.",
+        },
+      },
+    }),
+    async (c) => {
+      const user = c.get("user");
+
+      const data = await databaseClient.query.friendsSchema.findMany({
+        where: eq(friendsSchema.id, user.id),
+        columns: {
+          id: true,
+        },
+        with: {
+          friend: {
+            columns: {
+              id: true,
+              email: true,
+              image: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      const friends = data.map((friend) => ({
+        ...friend.friend,
+      }));
+
+      return c.json({
+        success: true,
+        data: friends,
+      }, HTTPStatusCodes.OK);
+    },
+  )
+  .openapi(
+    createRoute({
+      path: "/",
+      method: "delete",
+      description: "Route for ending friendship with someone.",
+      request: {
+        body: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                relationshipID: z.string(),
+                friendID: z.string(),
+              }),
+            },
+          },
+        },
+      },
+      responses: {
+        [HTTPStatusCodes.OK]: {
+          description: "",
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                message: z.string(),
+                detail: z.string(),
+              }),
+            },
+          },
+        },
+        [HTTPStatusCodes.CONFLICT]: {
+          description: "Data mismatch handler",
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                load: z.object({
+                  relationshipID: z.string(),
+                  friendID: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }),
+            },
+          },
+        },
+        [HTTPStatusCodes.UNAUTHORIZED]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }).openapi("Unauthorized__Response"),
+            },
+          },
+          description: "Unauthorized",
+        },
+        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                timestamp: z.date(),
+                path: z.string(),
+              }).openapi("Internal_Server_Error__Response"),
+            },
+          },
+          description: "Some unexpected error occurred at the server side.",
+        },
+      },
+    }),
+    async (c) => {
+      const user = c.get("user");
+      const body = c.req.valid("json");
+
+      const check = await databaseClient.query.friendsSchema.findFirst({
+        where: and(
+          eq(friendsSchema.userId, user.id),
+          eq(friendsSchema.friendId, body.friendID),
+        ),
+        columns: {
+          id: true,
+        },
+        with: {
+          friend: {
+            columns: {
+              email: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!check || (check.id !== body.relationshipID))
+        return c.json({
+          success: false,
+          load: body,
+          error: {
+            message: "The given relationship data is not correct.",
+            detail: "Please check the input in load and try again in some time.",
+            name: "USER_DATA_MISMATCH",
+          },
+          code: "CONFLICT",
+          path: c.req.path,
+        }, HTTPStatusCodes.CONFLICT);
+
+      await databaseClient["delete"](friendsSchema).where(
+        or(
+          and(
+            eq(friendsSchema.userId, user.id),
+            eq(friendsSchema.friendId, body.friendID),
+          ),
+          and(
+            eq(friendsSchema.userId, body.friendID),
+            eq(friendsSchema.friendId, user.id),
+          ),
+        ),
+      );
+
+      return c.json({
+        success: true,
+        message: `${check.friend.name} - (${check.friend.email}) is no longer a friend.`,
+        detail: "All individual conversations are hereby lost and can't be accessed anymore.",
+      }, HTTPStatusCodes.OK);
+    },
+  )
+  .openapi(
+    createRoute({
       method: "post",
-      path: "/new",
+      path: "/request",
       description: "New Friend Request Route",
       request: {
         body: {
@@ -144,96 +376,7 @@ const friendsRoute = createOpenAPIRoute()
   )
   .openapi(
     createRoute({
-      path: "/",
-      method: "get",
-      description: "Friend List Route",
-      responses: {
-        [HTTPStatusCodes.OK]: {
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                data: z.array(z.object({
-                  id: z.string(),
-                  name: z.string(),
-                  email: z.string().email(),
-                  image: z.string().nullable(),
-                })),
-              }).openapi("Friend_List__Response"),
-            },
-          },
-          description: "Returns the list of friends of the current authenticated user.",
-        },
-        [HTTPStatusCodes.UNAUTHORIZED]: {
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                error: z.object({
-                  message: z.string(),
-                  detail: z.string(),
-                  name: z.string(),
-                }),
-                code: z.string(),
-                path: z.string(),
-              }).openapi("Unauthorized__Response"),
-            },
-          },
-          description: "Unauthorized",
-        },
-        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                error: z.object({
-                  message: z.string(),
-                  detail: z.string(),
-                  name: z.string(),
-                }),
-                code: z.string(),
-                timestamp: z.date(),
-                path: z.string(),
-              }).openapi("Internal_Server_Error__Response"),
-            },
-          },
-          description: "Some unexpected error occurred at the server side.",
-        },
-      },
-    }),
-    async (c) => {
-      const user = c.get("user");
-
-      const data = await databaseClient.query.friendsSchema.findMany({
-        where: eq(friendsSchema.id, user.id),
-        columns: {
-          id: true,
-        },
-        with: {
-          friend: {
-            columns: {
-              id: true,
-              email: true,
-              image: true,
-              name: true,
-            },
-          },
-        },
-      });
-
-      const friends = data.map((friend) => ({
-        ...friend.friend,
-      }));
-
-      return c.json({
-        success: true,
-        data: friends,
-      }, HTTPStatusCodes.OK);
-    },
-  )
-  .openapi(
-    createRoute({
-      path: "/pending",
+      path: "/request/pending",
       method: "get",
       description: "Pending request routes.",
       responses: {
@@ -325,7 +468,7 @@ const friendsRoute = createOpenAPIRoute()
   )
   .openapi(
     createRoute({
-      path: "/status",
+      path: "/request/status",
       method: "get",
       description: "Sent Friend Request Route",
       responses: {
@@ -417,7 +560,7 @@ const friendsRoute = createOpenAPIRoute()
   )
   .openapi(
     createRoute({
-      path: "/accept",
+      path: "/request/accept",
       method: "post",
       request: {
         body: {
@@ -571,7 +714,7 @@ const friendsRoute = createOpenAPIRoute()
   )
   .openapi(
     createRoute({
-      path: "/reject",
+      path: "/request/reject",
       method: "post",
       request: {
         body: {
@@ -711,7 +854,7 @@ const friendsRoute = createOpenAPIRoute()
   )
   .openapi(
     createRoute({
-      path: "/cancel",
+      path: "/request/cancel",
       method: "post",
       request: {
         body: {
@@ -985,148 +1128,6 @@ const friendsRoute = createOpenAPIRoute()
       }, HTTPStatusCodes.OK);
     },
   )
-  .openapi(
-    createRoute({
-      path: "/",
-      method: "delete",
-      description: "Route for ending friendship with someone.",
-      request: {
-        body: {
-          content: {
-            "application/json": {
-              schema: z.object({
-                relationshipID: z.string(),
-                friendID: z.string(),
-              }),
-            },
-          },
-        },
-      },
-      responses: {
-        [HTTPStatusCodes.OK]: {
-          description: "",
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                message: z.string(),
-                detail: z.string(),
-              }),
-            },
-          },
-        },
-        [HTTPStatusCodes.CONFLICT]: {
-          description: "Data mismatch handler",
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                error: z.object({
-                  message: z.string(),
-                  detail: z.string(),
-                  name: z.string(),
-                }),
-                load: z.object({
-                  relationshipID: z.string(),
-                  friendID: z.string(),
-                }),
-                code: z.string(),
-                path: z.string(),
-              }),
-            },
-          },
-        },
-        [HTTPStatusCodes.UNAUTHORIZED]: {
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                error: z.object({
-                  message: z.string(),
-                  detail: z.string(),
-                  name: z.string(),
-                }),
-                code: z.string(),
-                path: z.string(),
-              }).openapi("Unauthorized__Response"),
-            },
-          },
-          description: "Unauthorized",
-        },
-        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
-          content: {
-            "application/json": {
-              schema: z.object({
-                success: z["boolean"](),
-                error: z.object({
-                  message: z.string(),
-                  detail: z.string(),
-                  name: z.string(),
-                }),
-                code: z.string(),
-                timestamp: z.date(),
-                path: z.string(),
-              }).openapi("Internal_Server_Error__Response"),
-            },
-          },
-          description: "Some unexpected error occurred at the server side.",
-        },
-      },
-    }),
-    async (c) => {
-      const user = c.get("user");
-      const body = c.req.valid("json");
-
-      const check = await databaseClient.query.friendsSchema.findFirst({
-        where: and(
-          eq(friendsSchema.userId, user.id),
-          eq(friendsSchema.friendId, body.friendID),
-        ),
-        columns: {
-          id: true,
-        },
-        with: {
-          friend: {
-            columns: {
-              email: true,
-              name: true,
-            },
-          },
-        },
-      });
-
-      if (!check || (check.id !== body.relationshipID))
-        return c.json({
-          success: false,
-          load: body,
-          error: {
-            message: "The given relationship data is not correct.",
-            detail: "Please check the input in load and try again in some time.",
-            name: "USER_DATA_MISMATCH",
-          },
-          code: "CONFLICT",
-          path: c.req.path,
-        }, HTTPStatusCodes.CONFLICT);
-
-      await databaseClient["delete"](friendsSchema).where(
-        or(
-          and(
-            eq(friendsSchema.userId, user.id),
-            eq(friendsSchema.friendId, body.friendID),
-          ),
-          and(
-            eq(friendsSchema.userId, body.friendID),
-            eq(friendsSchema.friendId, user.id),
-          ),
-        ),
-      );
-
-      return c.json({
-        success: true,
-        message: `${check.friend.name} - (${check.friend.email}) is no longer a friend.`,
-        detail: "All individual conversations are hereby lost and can't be accessed anymore.",
-      }, HTTPStatusCodes.OK);
-    },
-  );
+  ;
 
 export default friendsRoute;
