@@ -414,6 +414,160 @@ const friendsRoute = createOpenAPIRoute()
         data,
       }, HTTPStatusCodes.OK);
     },
+  )
+  .openapi(
+    createRoute({
+      path: "/accept",
+      method: "post",
+      request: {
+        body: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                friendID: z.string(),
+                requestID: z.string(),
+              }),
+            },
+          },
+        },
+      },
+      responses: {
+        [HTTPStatusCodes.OK]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                message: z.string(),
+                detail: z.string(),
+              }),
+            },
+
+          },
+          description: "Friend Request accept handling route",
+        },
+        [HTTPStatusCodes.CONFLICT]: {
+          description: "Data mismatch handler",
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                load: z.object({
+                  friendID: z.string(),
+                  requestID: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }),
+            },
+          },
+        },
+        [HTTPStatusCodes.UNAUTHORIZED]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }).openapi("Unauthorized__Response"),
+            },
+          },
+          description: "Unauthorized",
+        },
+        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                timestamp: z.date(),
+                path: z.string(),
+              }).openapi("Internal_Server_Error__Response"),
+            },
+          },
+          description: "Some unexpected error occurred at the server side.",
+        },
+      },
+    }),
+    async (c) => {
+      const user = c.get("user");
+
+      const body = c.req.valid("json");
+
+      const request = await databaseClient.query.friendRequestSchema.findFirst({
+        where: and(eq(friendRequestSchema.sentFromId, body.friendID), eq(friendRequestSchema.sentToId, user.id)),
+        columns: {
+          id: true,
+          status: true,
+          sentFromId: true,
+          sentToId: true,
+        },
+        with: {
+          sentFrom: {
+            columns: {
+              email: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!request || (request.id !== body.requestID && request.status !== "pending"))
+        return c.json({
+          success: false,
+          error: {
+            message: "The details does't belong to any valid friend request",
+            detail: "Please try refreshing the page or check with friend for updates.",
+            name: "USER_DATA_MISMATCH",
+          },
+          load: body,
+          code: "CONFLICT",
+          path: c.req.path,
+        }, HTTPStatusCodes.CONFLICT);
+
+      await databaseClient.transaction(async (tx) => {
+        await tx
+          .update(friendRequestSchema)
+          .set({
+            status: "accepted",
+          })
+          .where(eq(friendRequestSchema.id, request?.id || ""));
+
+        await tx
+          .insert(friendsSchema).values(
+            [
+              {
+                userId: request.sentFromId,
+                friendId: request.sentToId,
+              },
+              {
+                userId: request.sentToId,
+                friendId: request.sentFromId,
+              },
+            ],
+          );
+      });
+
+      return c.json({
+        success: true,
+        message: `${request.sentFrom.name} (${request.sentFrom.name}) is now a friend.`,
+        detail: "The friend request is accepted successfully you can now start a conversation.",
+      }, HTTPStatusCodes.OK);
+    },
   );
 
 export default friendsRoute;
