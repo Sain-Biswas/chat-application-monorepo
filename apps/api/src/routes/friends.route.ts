@@ -1,5 +1,5 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { and, eq } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import HTTPStatusCodes from "../constant/http-status-codes";
 import databaseClient from "../database/index.database";
 import { friendRequestSchema } from "../database/schema/friend-request.schema";
@@ -1127,7 +1127,6 @@ const friendsRoute = createOpenAPIRoute()
         detail: "The friend request status is no longer accessible.",
       }, HTTPStatusCodes.OK);
     },
-  )
-  ;
+  );
 
 export default friendsRoute;
