@@ -708,6 +708,146 @@ const friendsRoute = createOpenAPIRoute()
         detail: "The friend request is rejected successfully, sender will be notified in a short while.",
       }, HTTPStatusCodes.OK);
     },
+  )
+  .openapi(
+    createRoute({
+      path: "/cancel",
+      method: "post",
+      request: {
+        body: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                friendID: z.string(),
+                requestID: z.string(),
+              }),
+            },
+          },
+        },
+      },
+      responses: {
+        [HTTPStatusCodes.OK]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                message: z.string(),
+                detail: z.string(),
+              }),
+            },
+
+          },
+          description: "Friend Request accept handling route",
+        },
+        [HTTPStatusCodes.CONFLICT]: {
+          description: "Data mismatch handler",
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                load: z.object({
+                  friendID: z.string(),
+                  requestID: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }),
+            },
+          },
+        },
+        [HTTPStatusCodes.UNAUTHORIZED]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }).openapi("Unauthorized__Response"),
+            },
+          },
+          description: "Unauthorized",
+        },
+        [HTTPStatusCodes.INTERNAL_SERVER_ERROR]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                code: z.string(),
+                timestamp: z.date(),
+                path: z.string(),
+              }).openapi("Internal_Server_Error__Response"),
+            },
+          },
+          description: "Some unexpected error occurred at the server side.",
+        },
+      },
+    }),
+    async (c) => {
+      const user = c.get("user");
+
+      const body = c.req.valid("json");
+
+      const request = await databaseClient.query.friendRequestSchema.findFirst({
+        where: and(eq(friendRequestSchema.sentFromId, user.id), eq(friendRequestSchema.sentToId, body.friendID)),
+        columns: {
+          id: true,
+          status: true,
+          sentFromId: true,
+          sentToId: true,
+        },
+        with: {
+          sentTo: {
+            columns: {
+              email: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!request || (request.id !== body.requestID && request.status !== "pending"))
+        return c.json({
+          success: false,
+          error: {
+            message: "The details does't belong to any valid friend request",
+            detail: "Please try refreshing the page or check with friend for updates.",
+            name: "USER_DATA_MISMATCH",
+          },
+          load: body,
+          code: "CONFLICT",
+          path: c.req.path,
+        }, HTTPStatusCodes.CONFLICT);
+
+      await databaseClient.transaction(async (tx) => {
+        await tx
+          .update(friendRequestSchema)
+          .set({
+            status: "canceled",
+          })
+          .where(eq(friendRequestSchema.id, request.id || ""));
+      });
+
+      return c.json({
+        success: true,
+        message: `Canceled friend request to ${request.sentTo.name} (${request.sentTo.name}).`,
+        detail: "The friend request is canceled successfully, recipient will not be able to access the request any more.",
+      }, HTTPStatusCodes.OK);
+    },
   );
 
 export default friendsRoute;
