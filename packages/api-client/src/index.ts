@@ -7,3 +7,4 @@ const client = hc<THonoApp>("/");
 export default client;
 
 export type Client = typeof client;
+export type { InferResponseType } from "hono/client";

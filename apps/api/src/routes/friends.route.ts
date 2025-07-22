@@ -25,6 +25,7 @@ const friendsRoute = createOpenAPIRoute()
                   name: z.string(),
                   email: z.string().email(),
                   image: z.string().nullable(),
+                  relationshipId: z.string(),
                 })),
               }).openapi("Friend_List__Response"),
             },
@@ -90,6 +91,7 @@ const friendsRoute = createOpenAPIRoute()
 
       const friends = data.map((friend) => ({
         ...friend.friend,
+        relationshipId: friend.id,
       }));
 
       return c.json({

@@ -47,6 +47,7 @@ function SignInRoute() {
 
     const { data, error } = await signIn.email({
       ...values,
+      callbackURL: "/chats",
     });
 
     if (error) toast.error(error.message);
@@ -58,7 +59,7 @@ function SignInRoute() {
   async function socialSignin() {
     setLoading(true);
 
-    const { error } = await signIn.social({ provider: "google" });
+    const { error } = await signIn.social({ provider: "google", callbackURL: "/chats" });
 
     if (error) toast.error(error.message);
     else toast.success(`User registered successfully.`);

@@ -30,12 +30,14 @@ import {
   useSidebar,
 } from "@/web/components/ui/sidebar";
 import { IconExclamationCircleFilled } from "@tabler/icons-react";
+import { useNavigate } from "@tanstack/react-router";
 import { signOut, useSession } from "../../lib/auth";
 import { Skeleton } from "../ui/skeleton";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { data, error, isPending } = useSession();
+  const navigate = useNavigate();
 
   if (!data || isPending)
     return (
@@ -118,7 +120,13 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive" onClick={() => signOut()}>
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={() => {
+                signOut();
+                navigate({ to: "/signin" });
+              }}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
