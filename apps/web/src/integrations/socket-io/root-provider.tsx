@@ -12,15 +12,20 @@ export const useSocket = () => useContext(socketContext);
 
 interface SocketProviderProps {
   children: ReactNode;
-  serverUrl: string;
 }
 
-export const SocketProvider = ({ serverUrl, children }: SocketProviderProps) => {
+export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState<SocketContextType>(null);
 
   useEffect(() => {
-    const socketInstance = io(serverUrl, {
+    const socketUrl = import.meta.env.DEV ? "ws://localhost:3000" : "/";
+
+    const socketInstance = io(socketUrl, {
       transports: ["websocket"],
+    });
+
+    socketInstance.on("connect", () => {
+      console.log(socketInstance.id);
     });
 
     setSocket(socketInstance);
@@ -28,7 +33,7 @@ export const SocketProvider = ({ serverUrl, children }: SocketProviderProps) => 
     return () => {
       socketInstance.disconnect();
     };
-  }, [serverUrl]);
+  }, []);
 
   return (
     <socketContext.Provider value={socket}>
