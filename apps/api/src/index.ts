@@ -1,7 +1,6 @@
 import createOpenAPIApp from "@/api/lib/create-app";
 import registerOpenAPIRoutes from "@/api/routes";
-import console from "node:console";
-import { createServer } from "node:http";
+import { serve } from "@hono/node-server";
 import { Server } from "socket.io";
 import env from "./constant/env";
 import configureDefaultHandlers from "./lib/configure-default-handlers";
@@ -13,7 +12,12 @@ configureDefaultHandlers(app);
 
 configureScalarUI(app);
 
-const server = createServer();
+const server = serve({
+  fetch: app.fetch,
+  port: env.PORT
+}, (info) => {
+  console.log(`Server is running: http://${info.address}:${info.port}`);
+});
 
 const io = new Server(server, {
   cors: {
@@ -31,11 +35,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(env.PORT + 1, () => console.log(`WebSocket opened on: ${env.PORT + 1}`));
-
 export { io };
-
-export default {
-  fetch: app.fetch,
-  port: env.PORT,
-};

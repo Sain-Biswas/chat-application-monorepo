@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "@types/bun": "^1.2.18"
+    "@types/node": "^20.11.17"
   },
   "module": "index.ts",
   "name": "@zaptalk/typescript-config",

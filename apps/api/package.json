@@ -5,6 +5,7 @@
     ]
   },
   "dependencies": {
+    "@hono/node-server": "^1.17.1",
     "@hono/zod-openapi": "^0.19.9",
     "@neondatabase/serverless": "^1.0.1",
     "@scalar/hono-api-reference": "^0.9.9",
@@ -16,10 +17,12 @@
     "zod": "^4.0.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.18",
+    "@types/node": "^20.11.17",
     "@types/nodemailer": "^6.4.17",
     "@zaptalk/eslint-config": "workspace:^",
-    "drizzle-kit": "^0.31.4"
+    "dotenv": "^17.2.0",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.3"
   },
   "exports": {
     "./auth": "./src/lib/auth.ts",
@@ -31,10 +34,11 @@
   },
   "private": true,
   "scripts": {
+    "build": "tsc",
     "check-types": "tsc --noEmit",
-    "dev": "bun run --hot src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "start": "bun run src/index.ts"
+    "start": "node dist/index.js"
   }
 }

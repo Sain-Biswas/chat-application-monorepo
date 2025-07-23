@@ -1,9 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-
-  "extends": "./tsconfig.base.json",
-
   "compilerOptions": {
-    "jsxImportSource": "hono/jsx"
-  }
+    "allowImportingTsExtensions": false,
+    "jsxImportSource": "hono/jsx",
+    "noEmit": false,
+    "outDir": "./dist",
+    "types": [
+      "node"
+    ]
+  },
+  "extends": "./tsconfig.base.json"
 }

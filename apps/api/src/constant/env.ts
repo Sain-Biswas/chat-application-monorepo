@@ -1,4 +1,5 @@
-import z from "zod/v4";
+import "dotenv/config";
+import z from "zod";
 
 const environmentVariableSchema = z.object({
   DATABASE_URL: z.url(),
