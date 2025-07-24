@@ -1,17 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import client from "@zaptalk/api-client/index.js";
 import { Button } from "../components/ui/button";
-import { signOut, useSession } from "../lib/auth";
+import useCurrentUser from "../hooks/data/use-current-user";
+import { signOut } from "../lib/auth";
 
 export const Route = createFileRoute("/")({
   component: App,
 });
 
 function App() {
-  const { data } = useSession();
+  const { data } = useCurrentUser();
 
-  const { data: routeData, isPending } = useQuery({
+  const { data: routeData } = useSuspenseQuery({
     queryKey: ["home"],
     // eslint-disable-next-line unicorn/no-await-expression-member
     queryFn: async () => (await client.api.$get()).json(),
@@ -31,11 +32,9 @@ function App() {
       <Button onClick={() => signOut()}>
         Sign out
       </Button>
-      {!isPending && (
-        <div>
-          {JSON.stringify(routeData)}
-        </div>
-      )}
+      <div>
+        {JSON.stringify(routeData)}
+      </div>
     </div>
   );
 }
