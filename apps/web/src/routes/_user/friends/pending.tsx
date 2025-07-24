@@ -15,7 +15,7 @@ function RouteComponent() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink>
+              <BreadcrumbLink asChild>
                 <Link to="/friends">
                   Friends
                 </Link>
