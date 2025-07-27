@@ -23,11 +23,11 @@ const friendsRoute = createOpenAPIRoute()
                 data: z.array(z.object({
                   id: z.string(),
                   name: z.string(),
-                  email: z.string().email(),
+                  email: z.email(),
                   image: z.string().nullable(),
                   relationshipId: z.string(),
                 })),
-              }).openapi("Friend_List__Response"),
+              }),
             },
           },
           description: "Returns the list of friends of the current authenticated user.",
@@ -44,7 +44,7 @@ const friendsRoute = createOpenAPIRoute()
                 }),
                 code: z.string(),
                 path: z.string(),
-              }).openapi("Unauthorized__Response"),
+              }).openapi("Error"),
             },
           },
           description: "Unauthorized",
@@ -62,7 +62,7 @@ const friendsRoute = createOpenAPIRoute()
                 code: z.string(),
                 timestamp: z.date(),
                 path: z.string(),
-              }).openapi("Internal_Server_Error__Response"),
+              }).openapi("Error_with_Time"),
             },
           },
           description: "Some unexpected error occurred at the server side.",
@@ -255,7 +255,7 @@ const friendsRoute = createOpenAPIRoute()
           content: {
             "multipart/form-data": {
               schema: z.object({
-                email: z.string().email(),
+                email: z.email(),
               }),
               example: {
                 email: "person@example.com",
@@ -1027,7 +1027,7 @@ const friendsRoute = createOpenAPIRoute()
             },
 
           },
-          description: "Friend Request accept handling route",
+          description: "Friend Request delete handling route",
         },
         [HTTPStatusCodes.CONFLICT]: {
           description: "Data mismatch handler",
