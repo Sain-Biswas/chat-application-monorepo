@@ -14,7 +14,7 @@ configureScalarUI(app);
 
 const server = serve({
   fetch: app.fetch,
-  port: env.PORT
+  port: env.PORT,
 }, (info) => {
   console.log(`Server is running: http://${info.address}:${info.port}`);
 });

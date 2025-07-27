@@ -22,6 +22,7 @@
     "@zaptalk/eslint-config": "workspace:^",
     "dotenv": "^17.2.0",
     "drizzle-kit": "^0.31.4",
+    "eslint": "^9.30.1",
     "tsx": "^4.20.3"
   },
   "exports": {

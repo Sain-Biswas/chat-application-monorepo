@@ -7,7 +7,6 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 
 function RouteComponent() {
-  // eslint-disable-next-line no-use-before-define
   return (
     <SocketProvider>
       <SocketIOBasicHandler>

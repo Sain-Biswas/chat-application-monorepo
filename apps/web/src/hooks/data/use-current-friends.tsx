@@ -11,7 +11,8 @@ export default function useCurrentFriends() {
       const response = await client.api.friends.$get();
 
       if (response.ok) {
-        return (await response.json()).data;
+        const data = await response.json();
+        return data.data;
       }
 
       const error = await response.json();

@@ -5,10 +5,6 @@ import { Button } from "../components/ui/button";
 import useCurrentUser from "../hooks/data/use-current-user";
 import { signOut } from "../lib/auth";
 
-export const Route = createFileRoute("/")({
-  component: App,
-});
-
 function App() {
   const { data } = useCurrentUser();
 
@@ -38,3 +34,7 @@ function App() {
     </div>
   );
 }
+
+export const Route = createFileRoute("/")({
+  component: App,
+});

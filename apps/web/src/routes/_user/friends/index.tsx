@@ -6,14 +6,15 @@ import useCurrentFriends from "@/web/hooks/data/use-current-friends";
 import { createFileRoute } from "@tanstack/react-router";
 
 function RouteComponent() {
-  // eslint-disable-next-line no-use-before-define
   const { data, error } = useCurrentFriends();
 
   if (error)
-    return <div>
-      <p>{error.message}</p>
-      <p>{error.detail}</p>
-    </div>;
+    return (
+      <div>
+        <p>{error.message}</p>
+        <p>{error.detail}</p>
+      </div>
+    );
 
   return (
     <>

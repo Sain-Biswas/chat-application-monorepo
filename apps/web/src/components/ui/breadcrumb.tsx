@@ -101,6 +101,5 @@ function BreadcrumbEllipsis({
 export {
   Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem,
   BreadcrumbLink, BreadcrumbList, BreadcrumbPage,
-  BreadcrumbSeparator
+  BreadcrumbSeparator,
 };
-

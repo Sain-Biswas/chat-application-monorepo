@@ -5,7 +5,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
-    "@zaptalk/eslint-config": "workspace:^"
+    "@zaptalk/eslint-config": "workspace:^",
+    "eslint": "^9.30.1"
   },
   "exports": {
     "./*": "./dist/*"
