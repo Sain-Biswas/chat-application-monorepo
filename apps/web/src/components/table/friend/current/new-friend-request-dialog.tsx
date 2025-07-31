@@ -24,6 +24,7 @@ export default function NewFriendRequestDialog() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutate(values.email);
+    form.reset();
   }
 
   return (
@@ -39,7 +40,7 @@ export default function NewFriendRequestDialog() {
           <DialogTitle>Send new Friend Request</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="email"
@@ -55,7 +56,7 @@ export default function NewFriendRequestDialog() {
             />
 
             <DialogFooter>
-              <DialogClose disabled={isPending}>Cancel</DialogClose>
+              <DialogClose disabled={isPending} className="hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 h-9 px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium">Cancel</DialogClose>
               <Button type="submit" disabled={isPending}>
                 <IconCirclePlusFilled />
                 <p>Send</p>

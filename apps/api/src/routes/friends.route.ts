@@ -301,6 +301,26 @@ const friendsRoute = createOpenAPIRoute()
           },
           description: "No user found with given email.",
         },
+        [HTTPStatusCodes.CONFLICT]: {
+          content: {
+            "application/json": {
+              schema: z.object({
+                success: z["boolean"](),
+                error: z.object({
+                  message: z.string(),
+                  detail: z.string(),
+                  name: z.string(),
+                }),
+                load: z.object({
+                  email: z.string().email(),
+                }),
+                code: z.string(),
+                path: z.string(),
+              }),
+            },
+          },
+          description: "A request already exist between the users.",
+        },
         [HTTPStatusCodes.UNAUTHORIZED]: {
           content: {
             "application/json": {
@@ -313,7 +333,7 @@ const friendsRoute = createOpenAPIRoute()
                 }),
                 code: z.string(),
                 path: z.string(),
-              }).openapi("Unauthorized__Response"),
+              }),
             },
           },
           description: "Unauthorized",
@@ -331,7 +351,7 @@ const friendsRoute = createOpenAPIRoute()
                 code: z.string(),
                 timestamp: z.date(),
                 path: z.string(),
-              }).openapi("Internal_Server_Error__Response"),
+              }),
             },
           },
           description: "Some unexpected error occurred at the server side.",
@@ -361,6 +381,63 @@ const friendsRoute = createOpenAPIRoute()
         }, HTTPStatusCodes.NOT_ACCEPTABLE);
 
       const user = c.get("user");
+
+      const [existingFriend, existingRequest] = await Promise.all([
+        databaseClient.query.friendsSchema.findFirst({
+          where: and(
+            eq(friendsSchema.userId, user.id),
+            eq(friendsSchema.friendId, friend.id),
+          ),
+        }),
+        databaseClient.query.friendRequestSchema.findFirst({
+          where: or(
+            and(
+              eq(friendRequestSchema.sentFromId, friend.id),
+              eq(friendRequestSchema.sentToId, user.id),
+            ),
+            and(
+              eq(friendRequestSchema.sentFromId, user.id),
+              eq(friendRequestSchema.sentToId, friend.id),
+            ),
+            and(
+              eq(friendRequestSchema.status, "pending"),
+              eq(friendRequestSchema.status, "accepted"),
+            ),
+          ),
+        }),
+      ]);
+
+      console.log(existingFriend, existingRequest);
+
+      if (existingFriend)
+        return c.json({
+          success: false,
+          error: {
+            message: "Already friends",
+            detail: "Please check the friends list.",
+            name: "ALREADY_FRIENDS",
+          },
+          load: {
+            email: body.email,
+          },
+          code: "CONFLICT",
+          path: c.req.path,
+        }, HTTPStatusCodes.CONFLICT);
+
+      if (existingRequest)
+        return c.json({
+          success: false,
+          error: {
+            message: "An request already between the users.",
+            detail: "Please check the pending requests.",
+            name: "REQUEST_ALREADY_EXIST",
+          },
+          load: {
+            email: body.email,
+          },
+          code: "CONFLICT",
+          path: c.req.path,
+        }, HTTPStatusCodes.CONFLICT);
 
       await databaseClient.insert(friendRequestSchema).values({
         sentFromId: user.id,
@@ -489,7 +566,7 @@ const friendsRoute = createOpenAPIRoute()
                   id: z.string(),
                   createdAt: z.date(),
                   status: z["enum"](["accepted", "pending", "rejected", "canceled"]),
-                  sentFrom: z.object({
+                  sentTo: z.object({
                     id: z.string(),
                     email: z.string(),
                     image: z.string().nullable(),
@@ -548,7 +625,7 @@ const friendsRoute = createOpenAPIRoute()
           createdAt: true,
         },
         with: {
-          sentFrom: {
+          sentTo: {
             columns: {
               id: true,
               email: true,

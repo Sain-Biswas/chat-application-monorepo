@@ -30,6 +30,7 @@ import {
   useSidebar,
 } from "@/web/components/ui/sidebar";
 import { IconExclamationCircleFilled } from "@tabler/icons-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { signOut, useSession } from "../../lib/auth";
 import { Skeleton } from "../ui/skeleton";
@@ -38,6 +39,7 @@ export function NavUser() {
   const { isMobile } = useSidebar();
   const { data, error, isPending } = useSession();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   if (!data || isPending)
     return (
@@ -124,6 +126,7 @@ export function NavUser() {
               variant="destructive"
               onClick={() => {
                 signOut();
+                queryClient.invalidateQueries();
                 navigate({ to: "/signin" });
               }}
             >
