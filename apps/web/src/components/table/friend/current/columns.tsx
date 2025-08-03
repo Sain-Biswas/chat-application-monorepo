@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/web/components/ui/avatar";
 import type { ColumnDef } from "@tanstack/react-table";
 import type client from "@zaptalk/api-client/index.js";
 import type { InferResponseType } from "@zaptalk/api-client/index.js";
@@ -20,13 +21,14 @@ export const columns: ColumnDef<TCurrentFriendList>[] = [
 
       return (
         <div className="flex items-center gap-3 ml-3" key={data.id}>
-          <img
-            className="shrink-0 rounded-full"
-            src={data.image || ""}
-            width={40}
-            height={40}
-            alt="Avatar"
-          />
+          <Avatar>
+            <AvatarImage src={data.image || undefined} />
+            <AvatarFallback>
+              {
+                data.name.split(" ").map((c) => c.at(0)?.toUpperCase()).join("")
+              }
+            </AvatarFallback>
+          </Avatar>
           <div className="space-y-0.5">
             <p>
               <span className="text-sm font-medium hover:underline">
@@ -35,7 +37,7 @@ export const columns: ColumnDef<TCurrentFriendList>[] = [
             </p>
 
             <p className="text-muted-foreground text-xs">
-              @
+
               {data.email}
             </p>
           </div>

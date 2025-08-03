@@ -31,18 +31,19 @@ export default function CurrentFriendListActions({ data }: CurrentFriendListActi
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button>
+        <Button className="h-8" variant="outline">
+           <IconTrashFilled size={16} />
           End Friendship
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
           <div
-            className="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-            <IconTrashFilled className="opacity-80" size={16} />
-          </div>
+              className="flex size-9 shrink-0 items-center justify-center rounded-full"
+              aria-hidden="true"
+            >
+              <IconTrashFilled className="opacity-80" size={34} />
+            </div>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>

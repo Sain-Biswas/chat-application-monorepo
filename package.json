@@ -11,7 +11,7 @@
   },
   "module": "index.ts",
   "name": "zaptalk",
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@10.14.0",
   "peerDependencies": {
     "typescript": "^5.8.3"
   },

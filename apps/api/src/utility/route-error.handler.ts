@@ -2,8 +2,10 @@ import HTTPStatusCodes from "@/api/constant/http-status-codes";
 import type { TDefaultError } from "@/api/validator/default-error";
 import type { ErrorHandler } from "hono";
 
-const routerErrorHandler: ErrorHandler = (_error, c) =>
-  c.json<TDefaultError>(
+const routerErrorHandler: ErrorHandler = (_error, c) => {
+  console.log(_error);
+
+  return c.json<TDefaultError>(
     {
       success: false,
       error: {
@@ -18,5 +20,6 @@ const routerErrorHandler: ErrorHandler = (_error, c) =>
     },
     HTTPStatusCodes.INTERNAL_SERVER_ERROR,
   );
+};
 
 export default routerErrorHandler;

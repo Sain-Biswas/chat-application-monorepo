@@ -407,8 +407,6 @@ const friendsRoute = createOpenAPIRoute()
         }),
       ]);
 
-      console.log(existingFriend, existingRequest);
-
       if (existingFriend)
         return c.json({
           success: false,

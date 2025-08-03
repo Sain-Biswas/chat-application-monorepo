@@ -1,9 +1,20 @@
+import FriendRequestStatusTable from "@/web/components/table/friend/status/table";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/web/components/ui/breadcrumb";
 import { Separator } from "@/web/components/ui/separator";
 import { SidebarTrigger } from "@/web/components/ui/sidebar";
+import useFriendRequestStatus from "@/web/hooks/data/use-friend-request-status";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 function RouteComponent() {
+  const { data, error } = useFriendRequestStatus();
+
+  if (error)
+    return (
+      <div>
+        {error.message}
+      </div>
+    );
+
   return (
     <>
       <header className="bg-background sticky top-0 flex shrink-0 items-center gap-2 border-b p-4">
@@ -29,12 +40,7 @@ function RouteComponent() {
         </Breadcrumb>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4">
-        {Array.from({ length: 24 }).map((_, index) => (
-          <div
-            key={index}
-            className="bg-muted/50 aspect-video h-12 w-full rounded-lg"
-          />
-        ))}
+        <FriendRequestStatusTable data={data ?? []} />
       </div>
     </>
   );
