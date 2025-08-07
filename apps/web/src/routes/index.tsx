@@ -23,7 +23,7 @@ function App() {
         </nav>
       </header>
       <p>
-        {JSON.stringify(data)}
+        { data && JSON.stringify(data)}
       </p>
       <Button onClick={() => signOut()}>
         Sign out

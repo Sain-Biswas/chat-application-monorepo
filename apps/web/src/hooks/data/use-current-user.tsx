@@ -6,7 +6,9 @@ export default function useCurrentUser() {
     queryKey: ["user", "current"],
     queryFn: async () => {
       const session = await getSession();
-      return session.data?.user;
+
+      // eslint-disable-next-line unicorn/no-null
+      return session.data?.user || null;
     },
   });
 }

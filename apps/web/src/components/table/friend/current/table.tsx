@@ -88,7 +88,7 @@ export function DataTable({
                       colSpan={columns.length}
                       className="h-24 text-center"
                     >
-                      No results.
+                      No friends to show. You can send requests to your friends from &apos;Send new Request&apos; button above.
                     </TableCell>
                   </TableRow>
                 )}

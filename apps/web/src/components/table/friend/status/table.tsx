@@ -88,7 +88,7 @@ export default function FriendRequestStatusTable({
                       colSpan={columns.length}
                       className="h-24 text-center"
                     >
-                      No results.
+                      No sent requests to show
                     </TableCell>
                   </TableRow>
                 )}
