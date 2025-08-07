@@ -1,8 +1,7 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/web/components/ui/alert-dialog";
 import { Button } from "@/web/components/ui/button";
+import useEndFriendshipMutation from "@/web/hooks/mutations/use-end-friendship-mutation";
 import { IconTrashFilled } from "@tabler/icons-react";
-import client from "@zaptalk/api-client/index.js";
-import { toast } from "sonner";
 import type { TCurrentFriendList } from "./columns";
 
 interface CurrentFriendListActionsProps {
@@ -10,40 +9,24 @@ interface CurrentFriendListActionsProps {
 }
 
 export default function CurrentFriendListActions({ data }: CurrentFriendListActionsProps) {
-  async function endFriendshipHandler() {
-    const response = await client.api.friends.$delete({
-      json: {
-        friendID: data.id,
-        relationshipID: data.relationshipId,
-      },
-    });
-
-    if (response.ok) {
-      const parsed = await response.json();
-      toast.success(parsed.message, { description: parsed.detail });
-    }
-    else {
-      const parsed = await response.json();
-      toast.error(parsed.error.message, { description: parsed.error.detail });
-    }
-  };
+  const { mutate, isPending } = useEndFriendshipMutation();
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button className="h-8" variant="outline">
-           <IconTrashFilled size={16} />
+          <IconTrashFilled size={16} />
           End Friendship
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
           <div
-              className="flex size-9 shrink-0 items-center justify-center rounded-full"
-              aria-hidden="true"
-            >
-              <IconTrashFilled className="opacity-80" size={34} />
-            </div>
+            className="flex size-9 shrink-0 items-center justify-center rounded-full"
+            aria-hidden="true"
+          >
+            <IconTrashFilled className="opacity-80" size={34} />
+          </div>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -55,7 +38,7 @@ export default function CurrentFriendListActions({ data }: CurrentFriendListActi
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={endFriendshipHandler}>Confirm</AlertDialogAction>
+          <AlertDialogAction disabled={isPending} onClick={() => mutate({ friendID: data.id, requestID: data.relationshipId })}>Confirm</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -73,7 +73,7 @@ const friendsRoute = createOpenAPIRoute()
       const user = c.get("user");
 
       const data = await databaseClient.query.friendsSchema.findMany({
-        where: eq(friendsSchema.id, user.id),
+        where: eq(friendsSchema.userId, user.id),
         columns: {
           id: true,
         },
