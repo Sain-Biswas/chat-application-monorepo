@@ -1,8 +1,8 @@
 import env from "@/api/constant/env";
-import type { TOpenAPIHono } from "@/api/types/hono-open-api";
 import { Scalar } from "@scalar/hono-api-reference";
 
-export default function configureScalarUI(app: TOpenAPIHono) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function configureScalarUI(app: any) {
   if (env?.NODE_ENV === "production") return;
 
   app.doc("/openapi", {

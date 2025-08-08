@@ -16,7 +16,8 @@ const server = serve({
   fetch: app.fetch,
   port: env.PORT,
 }, (info) => {
-  console.log(`Server is running: http://${info.address}:${info.port}`);
+  // eslint-disable-next-line no-console
+  console.log(`Server is running: http://${info.address}:${info.port} - ${info.family}`);
 });
 
 const io = new Server(server, {
@@ -27,11 +28,11 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   socket.on("join:room", (room) => {
-    console.log(`Got data as ${room}`);
+    socket.join(room);
   });
 
   socket.on("leave:room", (data) => {
-    console.log(`Got data as ${data}`);
+    socket.leave(data);
   });
 });
 

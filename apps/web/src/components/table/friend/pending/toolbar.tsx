@@ -5,7 +5,6 @@ import type { Table } from "@tanstack/react-table";
 import { XIcon } from "lucide-react";
 import DataTableFacetedFilter from "../../column/data-table-faceted-filter";
 import { DataTableViewOptions } from "../../column/data-table-view-options";
-import NewFriendRequestDialog from "../current/new-friend-request-dialog";
 
 interface FriendPendingRequestToolbarProps<TData> {
   table: Table<TData>;
@@ -50,7 +49,6 @@ export default function FriendPendingRequestToolbar<TData>({ table }: FriendPend
       </div>
       <div className="flex gap-2">
         <DataTableViewOptions table={table} />
-        <NewFriendRequestDialog />
       </div>
     </div>
   );

@@ -787,6 +787,8 @@ const friendsRoute = createOpenAPIRoute()
           );
       });
 
+      io.to(body.friendID).emit("friends:accept", `${request.sentFrom.name} (${request.sentFrom.name}) is now a friend.`, "The friend request is accepted successfully you can now start a conversation.");
+
       return c.json({
         success: true,
         message: `${request.sentFrom.name} (${request.sentFrom.name}) is now a friend.`,
@@ -927,6 +929,8 @@ const friendsRoute = createOpenAPIRoute()
           .where(eq(friendRequestSchema.id, request.id || ""));
       });
 
+      io.to(body.friendID).emit("friends:reject", `Rejected friend request by${request.sentFrom.name} (${request.sentFrom.name}).`, "The friend request is rejected successfully, sender will be notified in a short while.");
+
       return c.json({
         success: true,
         message: `Rejected friend request by${request.sentFrom.name} (${request.sentFrom.name}).`,
@@ -1066,6 +1070,8 @@ const friendsRoute = createOpenAPIRoute()
           })
           .where(eq(friendRequestSchema.id, request.id || ""));
       });
+
+      io.to(body.friendID).emit("friends:cancel", `Canceled friend request to ${request.sentTo.name} (${request.sentTo.name}).`, "The friend request is canceled successfully, recipient will not be able to access the request any more.");
 
       return c.json({
         success: true,
