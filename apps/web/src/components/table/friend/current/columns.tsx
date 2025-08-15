@@ -1,4 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/web/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/web/components/ui/avatar";
 import type { ColumnDef } from "@tanstack/react-table";
 import type client from "@zaptalk/api-client/index.js";
 import type { InferResponseType } from "@zaptalk/api-client/index.js";
@@ -6,8 +10,8 @@ import { DataTableColumnHeader } from "../../column/data-table-column-header";
 import CurrentFriendListActions from "./actions";
 
 export type TCurrentFriendList = InferResponseType<
- typeof client.api.friends.$get,
- 200
+  typeof client.api.friends.$get,
+  200
 >["data"][0];
 
 export const columns: ColumnDef<TCurrentFriendList>[] = [
@@ -20,13 +24,14 @@ export const columns: ColumnDef<TCurrentFriendList>[] = [
       const data = row.original;
 
       return (
-        <div className="flex items-center gap-3 ml-3" key={data.id}>
+        <div className="ml-3 flex w-full items-center" key={data.id}>
           <Avatar>
             <AvatarImage src={data.image || undefined} />
             <AvatarFallback>
-              {
-                data.name.split(" ").map((c) => c.at(0)?.toUpperCase()).join("")
-              }
+              {data.name
+                .split(" ")
+                .map((c) => c.at(0)?.toUpperCase())
+                .join("")}
             </AvatarFallback>
           </Avatar>
           <div className="space-y-0.5">
@@ -36,10 +41,7 @@ export const columns: ColumnDef<TCurrentFriendList>[] = [
               </span>
             </p>
 
-            <p className="text-muted-foreground text-xs">
-
-              {data.email}
-            </p>
+            <p className="text-muted-foreground text-xs">{data.email}</p>
           </div>
         </div>
       );
@@ -52,8 +54,6 @@ export const columns: ColumnDef<TCurrentFriendList>[] = [
   },
   {
     id: "action",
-    cell: ({ row }) => (
-      <CurrentFriendListActions data={row.original} />
-    ),
+    cell: ({ row }) => <CurrentFriendListActions data={row.original} />,
   },
 ];
