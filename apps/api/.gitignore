@@ -4,6 +4,11 @@ node_modules/
 # Vite generated static files
 public/
 
+# environment variables
+.env
+.env.*
+!.env.sample
+
 # Better Auth
 auth-schema.ts
 

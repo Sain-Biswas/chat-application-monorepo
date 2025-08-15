@@ -11,7 +11,6 @@ const environmentVariableSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_CLIENT_EMAIL: z.string(),
   GOOGLE_CLIENT_REFRESH_TOKEN: z.string(),
-  SERVER_ADDRESS: z.string(),
 });
 
 const environmentVariable = environmentVariableSchema.safeParse(process.env);
