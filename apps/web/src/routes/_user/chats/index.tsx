@@ -1,4 +1,9 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/web/components/ui/breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/web/components/ui/breadcrumb";
 import { Separator } from "@/web/components/ui/separator";
 import { SidebarTrigger } from "@/web/components/ui/sidebar";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,7 +15,7 @@ function RouteComponent() {
         <SidebarTrigger className="-ml-1 hidden md:block" />
         <Separator
           orientation="vertical"
-          className="mr-2 data-[orientation=vertical]:h-4 hidden md:block"
+          className="mr-2 hidden data-[orientation=vertical]:h-4 md:block"
         />
         <Breadcrumb>
           <BreadcrumbList>
@@ -36,6 +41,6 @@ function RouteComponent() {
   );
 }
 
-export const Route = createFileRoute("/_user/chats")({
+export const Route = createFileRoute("/_user/chats/")({
   component: RouteComponent,
 });

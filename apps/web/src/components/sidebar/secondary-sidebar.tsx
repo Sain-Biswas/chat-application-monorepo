@@ -1,8 +1,19 @@
-import { IconCircleCheckFilled, IconClockHour12Filled, IconProgressHelp } from "@tabler/icons-react";
+import {
+  IconCircleCheckFilled,
+  IconClockHour12Filled,
+  IconProgressHelp,
+} from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Label } from "../ui/label";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInput } from "../ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarInput,
+} from "../ui/sidebar";
 import { Switch } from "../ui/switch";
 
 interface SecondarySidebarProps {
@@ -10,7 +21,6 @@ interface SecondarySidebarProps {
 }
 
 const data = {
-
   mails: [
     {
       name: "William Smith",
@@ -112,7 +122,7 @@ const friendsRoutes = [
     url: "/friends/status",
     name: "Status",
     icon: IconProgressHelp,
-    description: "Status of friend requests sent by you.",
+    description: "Status of friend requests sent by you to other users.",
   },
 ];
 
@@ -124,7 +134,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-xl  font-semibold">
+            <div className="text-foreground text-xl font-semibold">
               Conversations
             </div>
             <Label className="flex items-center gap-2 text-sm">
@@ -132,7 +142,10 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
               <Switch className="border-muted shadow-none" />
             </Label>
           </div>
-          <SidebarInput placeholder="Type to search..." className="bg-muted selection:bg-muted file:bg-muted dark:bg-muted" />
+          <SidebarInput
+            placeholder="Type to search..."
+            className="bg-muted selection:bg-muted file:bg-muted dark:bg-muted"
+          />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
@@ -144,8 +157,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
                   className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
                 >
                   <div className="flex w-full items-center gap-2">
-                    <span>{mail.name}</span>
-                    {" "}
+                    <span>{mail.name}</span>{" "}
                     <span className="ml-auto text-xs">{mail.date}</span>
                   </div>
                   <span className="font-medium">{mail.subject}</span>
@@ -162,27 +174,27 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
 
   if (path.startsWith("/friends"))
     return (
-      <Sidebar collapsible="none" className="hidden flex-1 md:flex">
+      <Sidebar collapsible="none" className="hidden flex-1 gap-0 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-xl  font-semibold">
-              Friends
-            </div>
+            <div className="text-foreground text-xl font-semibold">Friends</div>
           </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup className="px-0">
+          <SidebarGroup className="p-0">
             <SidebarGroupContent>
               {friendsRoutes.map((route) => (
                 <Link
                   to={route.url}
                   key={route.url}
-                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
+                  className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-1 border-b p-4 text-sm leading-tight whitespace-nowrap"
                 >
-                  <div className="flex gap-2 items-center">
-                    <route.icon className="size-8" />
+                  <div className="flex items-center gap-2">
+                    <route.icon className="size-7" />
                     <div className="flex w-full items-center gap-2">
-                      <span className="scroll-m-20 text-lg font-semibold tracking-tight">{route.name}</span>
+                      <span className="scroll-m-20 text-lg font-semibold tracking-tight">
+                        {route.name}
+                      </span>
                     </div>
                   </div>
                   <span className="line-clamp-2 w-[260px] text-xs whitespace-break-spaces">
@@ -201,7 +213,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
       <Sidebar collapsible="none" className="hidden flex-1 md:flex">
         <SidebarHeader className="gap-3.5 border-b p-4">
           <div className="flex w-full items-center justify-between">
-            <div className="text-foreground text-xl  font-semibold">
+            <div className="text-foreground text-xl font-semibold">
               Settings
             </div>
           </div>
@@ -216,8 +228,7 @@ export function SecondarySidebar({ path }: SecondarySidebarProps) {
                   className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex flex-col items-start gap-2 border-b p-4 text-sm leading-tight whitespace-nowrap last:border-b-0"
                 >
                   <div className="flex w-full items-center gap-2">
-                    <span>{mail.name}</span>
-                    {" "}
+                    <span>{mail.name}</span>{" "}
                     <span className="ml-auto text-xs">{mail.date}</span>
                   </div>
                   <span className="font-medium">{mail.subject}</span>
