@@ -32,6 +32,9 @@ const signupSchema = z.object({
 });
 
 function SignUpRoute() {
+  // eslint-disable-next-line no-use-before-define
+  const params = Route.useSearch();
+
   const signupForm = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -49,7 +52,7 @@ function SignUpRoute() {
 
     const { data, error } = await signUp.email({
       ...values,
-      callbackURL: "/chats",
+      callbackURL: params.redirect || "/chats",
     });
 
     if (error) toast.error(error.message);
@@ -61,7 +64,10 @@ function SignUpRoute() {
   async function socialSignup() {
     setLoading(true);
 
-    const { error } = await signIn.social({ provider: "google", callbackURL: "/chats" });
+    const { error } = await signIn.social({
+      provider: "google",
+      callbackURL: params.redirect || "/chats",
+    });
 
     if (error) toast.error(error.message);
     else toast.success(`User registered successfully.`);
@@ -153,13 +159,11 @@ function SignUpRoute() {
                     aria-pressed={isVisible}
                     aria-controls="password"
                   >
-                    {isVisible
-                      ? (
-                          <EyeOffIcon size={16} aria-hidden="true" />
-                        )
-                      : (
-                          <EyeIcon size={16} aria-hidden="true" />
-                        )}
+                    {isVisible ? (
+                      <EyeOffIcon size={16} aria-hidden="true" />
+                    ) : (
+                      <EyeIcon size={16} aria-hidden="true" />
+                    )}
                   </Button>
                 </div>
                 <FormMessage />
@@ -181,7 +185,9 @@ function SignUpRoute() {
       <div className="flex items-center justify-center">
         <p>Already have an account?</p>
         <Button variant="link">
-          <Link to="/signup">signin</Link>
+          <Link to="/signup" search={{ redirect: params.redirect }}>
+            signin
+          </Link>
         </Button>
       </div>
     </section>
@@ -190,4 +196,7 @@ function SignUpRoute() {
 
 export const Route = createFileRoute("/_auth/signup")({
   component: SignUpRoute,
+  validateSearch: z.object({
+    redirect: z.string(),
+  }),
 });

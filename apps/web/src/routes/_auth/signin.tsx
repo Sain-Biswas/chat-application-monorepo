@@ -32,6 +32,9 @@ const signinSchema = z.object({
 });
 
 function SignInRoute() {
+  // eslint-disable-next-line no-use-before-define
+  const params = Route.useSearch();
+
   const signinForm = useForm<z.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -48,7 +51,7 @@ function SignInRoute() {
 
     const { data, error } = await signIn.email({
       ...values,
-      callbackURL: "/chats",
+      callbackURL: params.redirect || "/chats",
     });
 
     if (error) toast.error(error.message);
@@ -62,7 +65,7 @@ function SignInRoute() {
 
     const { error } = await signIn.social({
       provider: "google",
-      callbackURL: "/chats",
+      callbackURL: params.redirect || "/chats",
     });
 
     if (error) toast.error(error.message);
@@ -137,13 +140,11 @@ function SignInRoute() {
                     aria-pressed={isVisible}
                     aria-controls="password"
                   >
-                    {isVisible
-                      ? (
-                          <EyeOffIcon size={16} aria-hidden="true" />
-                        )
-                      : (
-                          <EyeIcon size={16} aria-hidden="true" />
-                        )}
+                    {isVisible ? (
+                      <EyeOffIcon size={16} aria-hidden="true" />
+                    ) : (
+                      <EyeIcon size={16} aria-hidden="true" />
+                    )}
                   </Button>
                 </div>
                 <FormMessage />
@@ -178,7 +179,9 @@ function SignInRoute() {
       <div className="text-accent-foreground text-center text-sm">
         Don&apos;t have an account ?
         <Button variant="link" asChild className="px-2">
-          <Link to="/signup">Create account</Link>
+          <Link to="/signup" search={{ redirect: params.redirect }}>
+            Create account
+          </Link>
         </Button>
       </div>
     </section>
@@ -186,5 +189,8 @@ function SignInRoute() {
 }
 
 export const Route = createFileRoute("/_auth/signin")({
+  validateSearch: z.object({
+    redirect: z.string(),
+  }),
   component: SignInRoute,
 });
