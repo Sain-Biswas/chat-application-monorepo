@@ -38,9 +38,7 @@ if (rootElement && !rootElement.innerHTML) {
     <StrictMode>
       <ThemeProvider defaultTheme="system" storageKey="theme-ui">
         <TanStackQueryProvider.Provider>
-          <RouterProvider
-            router={router}
-          />
+          <RouterProvider router={router} />
         </TanStackQueryProvider.Provider>
       </ThemeProvider>
     </StrictMode>,
