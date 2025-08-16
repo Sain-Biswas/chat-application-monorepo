@@ -4,12 +4,17 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/web/components/ui/form";
 import { Input } from "@/web/components/ui/input";
 import { signIn, signUp } from "@/web/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconBrandGoogleFilled, IconUserFilled } from "@tabler/icons-react";
+import {
+  IconBrandGoogleFilled,
+  IconLoader2,
+  IconUserFilled,
+} from "@tabler/icons-react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AtSignIcon,
@@ -76,26 +81,30 @@ function SignUpRoute() {
   }
 
   return (
-    <section id="signup-form" className="flex max-w-96 flex-col gap-6">
-      <article className="flex flex-col items-center justify-center gap-2 text-center">
-        <TargetIcon className="size-10" />
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Welcome Back
-        </h3>
-        <p className="text-muted-foreground">
-          Enter your credentials to login to your account.
-        </p>
+    <section
+      id="signup-form"
+      className="m-auto h-fit w-full max-w-92 space-y-6"
+    >
+      <article className="flex flex-col items-center">
+        <Link to="/" aria-label="go home">
+          <TargetIcon />
+        </Link>
+        <h1 className="mt-4 mb-1 text-xl font-semibold">
+          Create a Zaptalk Account
+        </h1>
+        <p>Welcome! Create an account to get started</p>
       </article>
       <Form {...signupForm}>
         <form
           onSubmit={signupForm.handleSubmit(onSubmit)}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-4"
         >
           <FormField
             control={signupForm.control}
             name="name"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="text-sm">Name</FormLabel>
                 <div className="relative">
                   <FormControl>
                     <Input
@@ -117,6 +126,7 @@ function SignUpRoute() {
             name="email"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="text-sm">Email</FormLabel>
                 <div className="relative">
                   <FormControl>
                     <Input
@@ -138,6 +148,7 @@ function SignUpRoute() {
             name="password"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="text-sm">Password</FormLabel>
                 <div className="relative">
                   <FormControl>
                     <Input
@@ -170,23 +181,37 @@ function SignUpRoute() {
               </FormItem>
             )}
           />
+
           <Button type="submit" disabled={isLoading}>
-            Sign up
+            {isLoading && <IconLoader2 className="size-4 animate-spin" />}
+            Continue
           </Button>
         </form>
       </Form>
-      <div className="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
-        <span className="text-muted-foreground text-xs">Or</span>
+
+      <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+        <hr className="border-dashed" />
+        <span className="text-muted-foreground text-xs">Or continue With</span>
+        <hr className="border-dashed" />
       </div>
-      <Button disabled={isLoading} onClick={socialSignup}>
-        <IconBrandGoogleFilled />
-        <p>Sign up using Google</p>
+
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full"
+        onClick={socialSignup}
+        disabled={isLoading}
+      >
+        {isLoading && <IconLoader2 className="size-4 animate-spin" />}
+        <IconBrandGoogleFilled className="size-4" />
+        <span>Google</span>
       </Button>
-      <div className="flex items-center justify-center">
-        <p>Already have an account?</p>
-        <Button variant="link">
-          <Link to="/signup" search={{ redirect: params.redirect }}>
-            signin
+
+      <div className="text-accent-foreground text-center text-sm">
+        Have an account ?
+        <Button variant="link" asChild className="px-2">
+          <Link to="/signin" search={{ redirect: params.redirect }}>
+            Sign In
           </Link>
         </Button>
       </div>
@@ -197,6 +222,6 @@ function SignUpRoute() {
 export const Route = createFileRoute("/_auth/signup")({
   component: SignUpRoute,
   validateSearch: z.object({
-    redirect: z.string(),
+    redirect: z.string().optional(),
   }),
 });

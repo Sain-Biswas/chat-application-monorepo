@@ -3,7 +3,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export function AuthenticationRouteLayout() {
   return (
-    <main className="flex min-h-screen px-4 py-16 md:py-32">
+    <main className="flex min-h-screen px-4">
       <Outlet />
     </main>
   );

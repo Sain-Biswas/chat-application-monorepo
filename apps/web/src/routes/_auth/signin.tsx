@@ -89,13 +89,13 @@ function SignInRoute() {
       <Form {...signinForm}>
         <form
           onSubmit={signinForm.handleSubmit(onSubmit)}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-4"
         >
           <FormField
             control={signinForm.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="space-y-1">
+              <FormItem>
                 <FormLabel className="text-sm">Email</FormLabel>
                 <div className="relative">
                   <FormControl>
@@ -117,7 +117,7 @@ function SignInRoute() {
             control={signinForm.control}
             name="password"
             render={({ field }) => (
-              <FormItem className="space-y-1">
+              <FormItem>
                 <FormLabel className="text-sm">Password</FormLabel>
                 <div className="relative">
                   <FormControl>
@@ -151,6 +151,7 @@ function SignInRoute() {
               </FormItem>
             )}
           />
+
           <Button type="submit" disabled={isLoading}>
             {isLoading && <IconLoader2 className="size-4 animate-spin" />}
             Continue
@@ -190,7 +191,7 @@ function SignInRoute() {
 
 export const Route = createFileRoute("/_auth/signin")({
   validateSearch: z.object({
-    redirect: z.string(),
+    redirect: z.string().optional(),
   }),
   component: SignInRoute,
 });
