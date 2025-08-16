@@ -1,7 +1,13 @@
 /* eslint-disable unicorn/no-null */
 /* eslint-disable react-refresh/only-export-components */
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { io, type Socket } from "socket.io-client";
 
 type SocketContextType = Socket | null;
@@ -24,10 +30,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       transports: ["websocket"],
     });
 
-    socketInstance.on("connect", () => {
-      console.log(socketInstance.id);
-    });
-
     setSocket(socketInstance);
 
     return () => {
@@ -36,8 +38,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   }, []);
 
   return (
-    <socketContext.Provider value={socket}>
-      {children}
-    </socketContext.Provider>
+    <socketContext.Provider value={socket}>{children}</socketContext.Provider>
   );
 };

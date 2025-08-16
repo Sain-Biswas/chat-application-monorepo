@@ -137,11 +137,13 @@ function SignInRoute() {
                     aria-pressed={isVisible}
                     aria-controls="password"
                   >
-                    {isVisible ? (
-                      <EyeOffIcon size={16} aria-hidden="true" />
-                    ) : (
-                      <EyeIcon size={16} aria-hidden="true" />
-                    )}
+                    {isVisible
+                      ? (
+                          <EyeOffIcon size={16} aria-hidden="true" />
+                        )
+                      : (
+                          <EyeIcon size={16} aria-hidden="true" />
+                        )}
                   </Button>
                 </div>
                 <FormMessage />

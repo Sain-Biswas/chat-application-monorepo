@@ -8,7 +8,9 @@ interface SocketIOBasicHandlerProps {
   children: ReactNode;
 }
 
-export default function SocketIOBasicHandler({ children }: SocketIOBasicHandlerProps) {
+export default function SocketIOBasicHandler({
+  children,
+}: SocketIOBasicHandlerProps) {
   const socket = useSocket();
   const queryClient = useQueryClient();
   const { isPending, data } = useCurrentUser();
@@ -20,60 +22,55 @@ export default function SocketIOBasicHandler({ children }: SocketIOBasicHandlerP
 
     socket.on("friend:request", (message, details) => {
       toast.info(message, {
-        description: details
+        description: details,
       });
       queryClient.invalidateQueries({
-        queryKey: ["friend", "pending"]
+        queryKey: ["friend", "pending"],
       });
     });
 
     socket.on("friends:delete", (message, details) => {
       toast.info(message, {
-        description: details
+        description: details,
       });
       queryClient.invalidateQueries({
-        queryKey: ["friends", "current"]
+        queryKey: ["friends", "current"],
       });
     });
 
     socket.on("friends:accept", (message, details) => {
       toast.info(message, {
-        description: details
+        description: details,
       });
       queryClient.invalidateQueries({
-        queryKey: ["friend"]
+        queryKey: ["friend"],
       });
     });
 
     socket.on("friends:reject", (message, details) => {
       toast.info(message, {
-        description: details
+        description: details,
       });
       queryClient.invalidateQueries({
-        queryKey: ["friend"]
+        queryKey: ["friend"],
       });
     });
 
     socket.on("friends:cancel", (message, details) => {
       toast.info(message, {
-        description: details
+        description: details,
       });
       queryClient.invalidateQueries({
-        queryKey: ["friend"]
+        queryKey: ["friend"],
       });
     });
 
     return () => {
       socket.emit("leave:room", data.id);
     };
-  }, [socket, data]);
+  }, [socket, data, queryClient]);
 
-  if (isPending)
-    return (
-      <main>
-        Connecting to the server....
-      </main>
-    );
+  if (isPending) return <main>Connecting to the server....</main>;
 
   return children;
 }
